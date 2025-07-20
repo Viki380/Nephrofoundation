@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Vignesh's Kidney Care | Nephrologist in Salem, Tamil Nadu</title>
+    <meta name="description" content="Expert and compassionate kidney care from Dr. Vignesh (DM Nephrology, PGIMER). Your trusted partner for managing kidney disease in Salem, Tamil Nadu.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide-react@latest/dist/lucide.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .hero-bg-gradient {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e6f0ff 100%);
+        }
+        .cta-button {
+            transition: all 0.3s ease;
+        }
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-weight: 800; /* Extra Bold for titles */
+        }
+        .testimonial-card {
+            background-color: #f8fafc; /* Lighter gray */
+            border-left: 4px solid #2563eb; /* Blue accent */
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-blue-800">
+                Dr. Vignesh's Kidney Care
+            </a>
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="index.html" class="text-blue-700 font-semibold">Home</a>
+                <a href="about.html" class="text-gray-600 hover:text-blue-700 font-medium">About Me</a>
+                <a href="patient-hub.html" class="text-gray-600 hover:text-blue-700 font-medium">Patient Hub</a>
+                <a href="contact.html" class="text-gray-600 hover:text-blue-700 font-medium">Contact</a>
+            </nav>
+            <a href="appointment.html" class="hidden md:inline-block bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg shadow-md hover:bg-blue-800 cta-button">
+                Book Appointment
+            </a>
+            <button id="mobile-menu-button" class="md:hidden">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 space-y-2">
+            <a href="index.html" class="block text-gray-600 hover:text-blue-700 font-medium py-2">Home</a>
+            <a href="about.html" class="block text-gray-600 hover:text-blue-700 font-medium py-2">About Me</a>
+            <a href="patient-hub.html" class="block text-gray-600 hover:text-blue-700 font-medium py-2">Patient Hub</a>
+            <a href="contact.html" class="block text-gray-600 hover:text-blue-700 font-medium py-2">Contact</a>
+            <a href="appointment.html" class="mt-4 inline-block w-full text-center bg-blue-700 text-white font-semibold px-5 py-3 rounded-lg shadow-md hover:bg-blue-800 cta-button">
+                Book Appointment
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-bg-gradient py-20 md:py-28">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <div class="inline-flex items-center bg-blue-100 text-blue-800 text-sm font-semibold px-4 py-1 rounded-full mb-4">
+                        <i data-lucide="award" class="w-4 h-4 mr-2"></i>
+                        DM Nephrology, PGIMER Chandigarh
+                    </div>
+                    <h1 class="text-4xl md:text-5xl section-title text-gray-900 mb-4 leading-tight">Expert Guidance. Compassionate Care.</h1>
+                    <p class="text-lg text-gray-600 mb-8 max-w-xl mx-auto md:mx-0">
+                        I'm Dr. Vignesh. My mission is to provide trusted, world-class kidney care to the community in and around Salem, Tamil Nadu.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center md:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="appointment.html" class="bg-blue-700 text-white font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-blue-800 cta-button text-lg flex items-center justify-center">
+                            <i data-lucide="calendar-plus" class="w-5 h-5 mr-2"></i>
+                            Book an Appointment
+                        </a>
+                        <a href="patient-hub.html" class="bg-white text-blue-700 font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-gray-100 border border-gray-200 cta-button text-lg flex items-center justify-center">
+                            <i data-lucide="book-open-check" class="w-5 h-5 mr-2"></i>
+                            Explore Patient Hub
+                        </a>
+                    </div>
+                </div>
+                <div class="flex justify-center">
+                    <div class="relative w-80 h-80 md:w-96 md:h-96">
+                        <div class="absolute inset-0 bg-blue-200 rounded-full transform -rotate-12 scale-105"></div>
+                        <img src="https://placehold.co/400x400/EBF4FF/3B82F6?text=Dr.+Vignesh" 
+                             alt="Dr. Vignesh, Nephrologist in Salem" 
+                             class="relative w-full h-full object-cover rounded-full shadow-2xl border-8 border-white">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl section-title text-gray-900">My Areas of Expertise</h2>
+                    <p class="mt-4 text-lg text-gray-600">I provide personalized care plans for a wide range of kidney-related conditions, ensuring you receive the most effective treatment.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-blue-100 text-blue-700 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                            <i data-lucide="heart-pulse" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">CKD Management</h3>
+                        <p class="text-gray-600">Holistic care to slow disease progression and manage symptoms, focusing on your quality of life.</p>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-blue-100 text-blue-700 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                            <i data-lucide="droplets" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Dialysis Support</h3>
+                        <p class="text-gray-600">Comprehensive support for patients on all forms of dialysis, ensuring optimal and comfortable treatment.</p>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 hover:border-blue-500 hover:shadow-2xl transition-all duration-300">
+                        <div class="bg-blue-100 text-blue-700 rounded-full w-16 h-16 flex items-center justify-center mb-6">
+                            <i data-lucide="shield-check" class="w-8 h-8"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Post-Transplant Care</h3>
+                        <p class="text-gray-600">Dedicated follow-up and management to ensure the long-term success of your kidney transplant.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Patient Education Hub Teaser -->
+        <section class="bg-blue-50 py-16 md:py-24">
+            <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left">
+                    <i data-lucide="book-open" class="text-blue-700 w-16 h-16 mx-auto md:mx-0"></i>
+                    <h2 class="text-3xl section-title text-gray-900 mt-4">Knowledge is Power. Your Patient Hub.</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-xl">
+                        An informed patient is an empowered patient. My Patient Hub offers clear, trustworthy articles and tools to help you understand and manage your condition.
+                    </p>
+                    <a href="patient-hub.html" class="mt-8 inline-block bg-blue-700 text-white font-bold px-8 py-4 rounded-lg shadow-lg hover:bg-blue-800 cta-button text-lg">
+                        Start Learning Now
+                    </a>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h4 class="font-bold text-lg mb-4">Popular Topics:</h4>
+                    <ul class="space-y-3">
+                        <li class="flex items-center text-gray-700"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-green-500"></i>Understanding Your eGFR Score</li>
+                        <li class="flex items-center text-gray-700"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-green-500"></i>Kidney-Friendly South Indian Diet</li>
+                        <li class="flex items-center text-gray-700"><i data-lucide="check-circle-2" class="w-5 h-5 mr-3 text-green-500"></i>Managing Blood Pressure for Kidney Health</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+        <!-- NEW: Testimonials Section -->
+        <section class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-3xl md:text-4xl section-title text-gray-900">What My Patients Say</h2>
+                    <p class="mt-4 text-lg text-gray-600">Building relationships based on trust and care is at the heart of my practice.</p>
+                </div>
+                <div class="mt-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Testimonial Card 1 -->
+                    <div class="testimonial-card p-8 rounded-lg shadow-sm">
+                        <p class="text-gray-700 italic text-lg">"Dr. Vignesh explains everything so clearly. For the first time, I feel in control of my health. He listens patiently and his advice on diet has made a huge difference. Highly recommend him for anyone in Salem."</p>
+                        <div class="mt-6 font-semibold text-gray-900">- S. Kumar, <span class="text-gray-600 font-medium">Retired Teacher, Salem</span></div>
+                    </div>
+                    <!-- Testimonial Card 2 -->
+                    <div class="testimonial-card p-8 rounded-lg shadow-sm">
+                        <p class="text-gray-700 italic text-lg">"After my father's diagnosis, we were very scared. We found Dr. Vignesh online. His approach is both professional and deeply caring. He treats my father like family. We are grateful for his guidance."</p>
+                        <div class="mt-6 font-semibold text-gray-900">- P. Anitha, <span class="text-gray-600 font-medium">Software Engineer, Erode</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- My Philosophy Section -->
+        <section class="py-16 md:py-24 bg-gray-50">
+             <div class="container mx-auto px-6 grid md:grid-cols-5 gap-12 items-center">
+                <div class="md:col-span-2">
+                    <img src="https://placehold.co/600x800/EBF4FF/3B82F6?text=Dr.+Vignesh+in+Clinic" 
+                         alt="Dr. Vignesh in his clinic in Salem" 
+                         class="rounded-xl shadow-2xl w-full h-full object-cover">
+                </div>
+                <div class="md:col-span-3">
+                    <h2 class="text-3xl section-title text-gray-900">My Philosophy of Care</h2>
+                    <p class="mt-4 text-lg text-gray-600">
+                        My training at PGIMER taught me the value of evidence-based medicine. But my experience has taught me that true healing comes from listening. I treat my patients, not just their lab reports. My goal is to build a partnership with you, based on trust and mutual respect, to navigate your health journey together. Here in Salem, I am committed to bringing that standard of care to my home community.
+                    </p>
+                    <div class="mt-8 border-l-4 border-blue-600 pl-6">
+                        <p class="text-xl font-semibold text-gray-800 italic">"The best care is a blend of world-class knowledge and local understanding."</p>
+                        <p class="mt-2 font-bold text-blue-700">- Dr. Vignesh, DM (Nephrology)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <h3 class="text-xl font-bold">Dr. Vignesh's Kidney Care</h3>
+                    <p class="mt-4 text-gray-400">Providing expert nephrology services to Salem, Tamil Nadu, and surrounding areas. Trained at PGIMER, Chandigarh.</p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold">Quick Links</h3>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="about.html" class="text-gray-400 hover:text-white">About Me</a></li>
+                        <li><a href="patient-hub.html" class="text-gray-400 hover:text-white">Patient Hub</a></li>
+                        <li><a href="appointment.html" class="text-gray-400 hover:text-white">Book Appointment</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold">Contact Info</h3>
+                    <ul class="mt-4 space-y-3 text-gray-400">
+                        <li class="flex items-start"><i data-lucide="map-pin" class="w-5 h-5 mr-3 mt-1 shrink-0"></i><span>Your Clinic Address, Salem, Tamil Nadu, 636001</span></li>
+                        <li class="flex items-center"><i data-lucide="phone" class="w-5 h-5 mr-3"></i><span>+91 98765 43210</span></li>
+                        <li class="flex items-center"><i data-lucide="mail" class="w-5 h-5 mr-3"></i><span>info@nephrofoundation.com</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-12 pt-8 border-t border-gray-700 text-center text-gray-500">
+                <p>&copy; 2025 Dr. Vignesh's Kidney Care. All Rights Reserved. | <a href="#" class="hover:text-white">Privacy Policy</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Lucide Icons replacement
+        lucide.createIcons();
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

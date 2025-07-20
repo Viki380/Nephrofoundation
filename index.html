@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NephroFoundation | Your Guide to Kidney Health</title>
+    <meta name="description" content="NephroFoundation, led by Dr. Vignesh (DM Nephrology, PGIMER), provides trusted patient education for kidney disease. Based in Salem, Tamil Nadu.">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <!-- Placeholders for dynamic content -->
+    <div id="header-placeholder"></div>
+    <div id="content-placeholder"></div>
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // --- Script to load components and initialize page ---
+        const loadComponent = async (url, placeholderId) => {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`File not found: ${url}`);
+                const data = await response.text();
+                document.getElementById(placeholderId).innerHTML = data;
+            } catch (error) {
+                console.error(`Error loading ${url}:`, error);
+            }
+        };
+
+        const initializePage = async () => {
+            await Promise.all([
+                loadComponent('header.html', 'header-placeholder'),
+                loadComponent('index-content.html', 'content-placeholder'),
+                loadComponent('footer.html', 'footer-placeholder')
+            ]);
+            // Call all interactivity scripts AFTER content is loaded
+            setupSmoothScrolling();
+            setupIntersectionObserver();
+            setupAccordion(); // <-- This line fixes the accordion
+        };
+
+        const setupSmoothScrolling = () => {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            });
+        };
+
+        const setupIntersectionObserver = () => {
+            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.resource-item').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                observer.observe(card);
+            });
+        };
+        
+        // --- Accordion Logic ---
+        const setupAccordion = () => {
+            const accordionItems = document.querySelectorAll('.accordion-item');
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const body = item.querySelector('.accordion-body');
+                const icon = item.querySelector('.accordion-icon');
+
+                header.addEventListener('click', () => {
+                    const isOpen = header.classList.contains('active');
+                    // Close all other items
+                    accordionItems.forEach(otherItem => {
+                        otherItem.querySelector('.accordion-header').classList.remove('active');
+                        otherItem.querySelector('.accordion-body').style.maxHeight = null;
+                        otherItem.querySelector('.accordion-icon').textContent = '+';
+                    });
+                    // Open the clicked item if it was closed
+                    if (!isOpen) {
+                        header.classList.add('active');
+                        body.style.maxHeight = body.scrollHeight + 'px';
+                        icon.textContent = '−';
+                    }
+                });
+            });
+        };
+
+        document.addEventListener("DOMContentLoaded", initializePage);
+    </script>
+</body>
+</html>

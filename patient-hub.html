@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Education Hub | NephroFoundation</title>
+    <meta name="description" content="A comprehensive library of articles on kidney disease, diet, treatment, and prevention from Dr. Vignesh.">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS for prose styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+    
+    <style>
+        html { scroll-behavior: smooth; } /* Enables smooth scrolling */
+        .prose h3 { font-size: 1.75rem; font-weight: 700; color: #1f2937; margin-top: 2.5em; margin-bottom: 1em; }
+        .prose h4 { font-size: 1.25rem; font-weight: 600; color: #1f2937; margin-top: 2em; margin-bottom: 1em; scroll-margin-top: 100px; } /* scroll-margin-top prevents header from covering title */
+        .prose p, .prose ul, .prose li { font-size: 1.125rem; line-height: 1.75; color: #374151; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 0.5rem; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+    </style>
+
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <div id="content-placeholder"></div>
+    <div id="footer-placeholder"></div>
+
+    <script>
+        const loadComponent = async (url, placeholderId) => {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`File not found: ${url}`);
+                const data = await response.text();
+                document.getElementById(placeholderId).innerHTML = data;
+            } catch (error) { console.error(`Error loading ${url}:`, error); }
+        };
+
+        const initializePage = async () => {
+            await Promise.all([
+                loadComponent('header.html', 'header-placeholder'),
+                loadComponent('patient-hub-content.html', 'content-placeholder'),
+                loadComponent('footer.html', 'footer-placeholder')
+            ]);
+            setupEducationHubNav();
+        };
+
+        const setupEducationHubNav = () => {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const contentPlaceholder = document.getElementById('article-content-placeholder');
+
+            const loadArticle = async (url, targetId, subTargetId) => {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) throw new Error(`File not found: ${url}`);
+                    contentPlaceholder.innerHTML = await response.text();
+                    
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    document.querySelector(`a[data-target="${targetId}"]`).classList.add('active');
+                    
+                    // NEW: Scroll to sub-heading if it exists
+                    if (subTargetId) {
+                        setTimeout(() => { // Use timeout to ensure content is rendered
+                            const element = document.getElementById(subTargetId);
+                            if (element) {
+                                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            }
+                        }, 100);
+                    } else {
+                        // Scroll to top of content area if no sub-target
+                         document.querySelector('.education-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+
+                } catch (error) {
+                    contentPlaceholder.innerHTML = `<p>Error: Could not load content.</p>`;
+                }
+            };
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const articleUrl = link.getAttribute('href');
+                    const targetId = link.getAttribute('data-target');
+                    history.pushState(null, null, `#${targetId}`);
+                    loadArticle(articleUrl, targetId, null); // No sub-target on direct nav click
+                });
+            });
+
+            // Handle initial page load with potential deep link
+            const initialHash = window.location.hash.substring(1);
+            let mainTarget = initialHash.split('-')[0] || 'understanding';
+            let subTarget = initialHash;
+
+            const initialLink = document.querySelector(`a[data-target="${mainTarget}"]`);
+            if (initialLink) {
+                loadArticle(initialLink.getAttribute('href'), mainTarget, subTarget);
+            } else {
+                const firstLink = navLinks[0];
+                loadArticle(firstLink.getAttribute('href'), firstLink.getAttribute('data-target'), null);
+            }
+        };
+        
+        document.addEventListener("DOMContentLoaded", initializePage);
+    </script>
+</body>
+</html>

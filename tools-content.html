@@ -1,0 +1,242 @@
+<style>
+    /* Custom styles for the KDIGO Heatmap */
+    .heatmap-grid {
+        display: grid;
+        grid-template-columns: 1fr repeat(3, 2fr);
+        grid-template-rows: repeat(5, 1fr);
+        gap: 4px;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        overflow: hidden;
+        font-family: 'Inter', sans-serif;
+    }
+    .heatmap-cell {
+        padding: 0.75rem;
+        text-align: center;
+        font-weight: 600;
+        color: #1f2937;
+        transition: all 0.3s ease;
+    }
+    .heatmap-header {
+        background-color: #f3f4f6;
+        font-weight: 700;
+    }
+    .g-stage { background-color: #dcfce7; } /* Green */
+    .y-stage { background-color: #fef9c3; } /* Yellow */
+    .o-stage { background-color: #ffedd5; } /* Orange */
+    .r-stage { background-color: #fee2e2; } /* Red */
+    .highlight-cell {
+        box-shadow: 0 0 0 4px #1d4ed8 inset; /* Blue inner border */
+        transform: scale(1.05);
+        z-index: 10;
+    }
+</style>
+
+<main>
+    <!-- Page Title Hero -->
+    <section class="hero" style="padding: 60px 0;">
+        <div class="container">
+            <div class="hero-content">
+                <div class="section-icon monitoring mx-auto mb-4">🧮</div>
+                <h2 style="font-size: 2.5rem;">Kidney Health Tools</h2>
+                <p style="font-size: 1.1rem;">Interactive tools to help you understand your kidney health metrics.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- eGFR Calculator Section -->
+    <section class="pt-16 pb-8 bg-white">
+        <div class="container" style="max-width: 800px;">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">eGFR Calculator (CKD-EPI 2021)</h3>
+            <p class="text-gray-600 text-center mb-4">Estimate your Glomerular Filtration Rate (eGFR).</p>
+            <p class="text-xs text-gray-500 text-center mb-8">Reference: Inker LA, Eneanya ND, et al. for the CKD-EPI Collaboration. N Engl J Med. 2021.</p>
+            <div class="doctor-card" style="background: #ffffff; border: 1px solid #e5e7eb;">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div><label for="creatinine" class="block text-sm font-medium text-gray-700">Serum Creatinine</label><div class="flex items-center mt-1"><input type="number" step="0.01" name="creatinine" id="creatinine" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"><span class="ml-3 text-gray-500">mg/dL</span></div></div>
+                        <div><label for="age" class="block text-sm font-medium text-gray-700">Age</label><input type="number" name="age" id="age" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
+                        <div><label class="block text-sm font-medium text-gray-700">Sex</label><div class="mt-2 flex space-x-4"><label class="flex items-center"><input type="radio" name="sex" value="male" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"><span class="ml-2 text-gray-700">Male</span></label><label class="flex items-center"><input type="radio" name="sex" value="female" checked class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"><span class="ml-2 text-gray-700">Female</span></label></div></div>
+                        <div><button id="calculate-gfr-btn" class="w-full hero cta-button" style="background: linear-gradient(45deg, #22c55e, #16a34a);">Calculate eGFR</button></div>
+                    </div>
+                    <div id="gfr-result-container" class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg text-center" style="display: none;"><p class="text-gray-600 font-medium">Your Estimated GFR is:</p><p id="egfr-result" class="text-5xl font-bold text-blue-600 my-2">--</p><p class="text-gray-600 font-medium mb-4">mL/min/1.73m²</p><div id="stage-info" class="w-full p-3 rounded-md text-white font-semibold"><p id="stage-text"></p></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- KFRE Calculator Section -->
+    <section class="pt-8 pb-8 bg-white">
+        <div class="container" style="max-width: 800px;">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Kidney Failure Risk Equation (KFRE)</h3>
+            <p class="text-gray-600 text-center mb-4">Predict the 2-year and 5-year risk of progressing to kidney failure.</p>
+            <p class="text-xs text-gray-500 text-center mb-8">Reference: Tangri N, et al. for the CKD Prognosis Consortium. JAMA. 2016.</p>
+            <div class="doctor-card" style="background: #ffffff; border: 1px solid #e5e7eb;">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="space-y-4">
+                        <div><label for="kfre-age" class="block text-sm font-medium text-gray-700">Age</label><input type="number" id="kfre-age" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
+                        <div><label for="kfre-sex" class="block text-sm font-medium text-gray-700">Sex</label><select id="kfre-sex" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"><option value="female">Female</option><option value="male">Male</option></select></div>
+                        <div><label for="kfre-egfr" class="block text-sm font-medium text-gray-700">eGFR</label><input type="number" id="kfre-egfr" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
+                        <div><label for="kfre-uacr" class="block text-sm font-medium text-gray-700">Urine Albumin-to-Creatinine Ratio (UACR)</label><div class="flex items-center mt-1"><input type="number" id="kfre-uacr" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"><span class="ml-3 text-gray-500">mg/g</span></div></div>
+                        <div><button id="calculate-kfre-btn" class="w-full hero cta-button" style="background: linear-gradient(45deg, #3b82f6, #1d4ed8);">Calculate Risk & See on Heatmap</button></div>
+                    </div>
+                    <div id="kfre-result-container" class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg text-center" style="display: none;"><p class="text-gray-600 font-medium mb-4">Predicted Risk of Kidney Failure:</p><div class="w-full flex justify-around"><div class="text-center"><p class="text-4xl font-bold text-orange-600" id="kfre-2yr-result">--%</p><p class="text-sm font-medium text-gray-500">in 2 Years</p></div><div class="text-center"><p class="text-4xl font-bold text-red-600" id="kfre-5yr-result">--%</p><p class="text-sm font-medium text-gray-500">in 5 Years</p></div></div></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KDIGO Heatmap Section -->
+    <section class="pt-8 pb-16 bg-white">
+        <div class="container" style="max-width: 800px;">
+            <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">KDIGO CKD Prognosis Heatmap</h3>
+            <p class="text-gray-600 text-center mb-4">Visually understand your risk based on eGFR and albuminuria categories.</p>
+            <p class="text-xs text-gray-500 text-center mb-8">Source: KDIGO 2012 Clinical Practice Guideline for the Evaluation and Management of CKD.</p>
+            
+            <div class="heatmap-grid">
+                <!-- Headers -->
+                <div class="heatmap-cell heatmap-header">eGFR</div>
+                <div class="heatmap-cell heatmap-header">Normal<br/>(&lt;30 mg/g)</div>
+                <div class="heatmap-cell heatmap-header">High<br/>(30-300 mg/g)</div>
+                <div class="heatmap-cell heatmap-header">Very High<br/>(&gt;300 mg/g)</div>
+
+                <!-- G1 Stage -->
+                <div class="heatmap-cell heatmap-header">&gt;90</div>
+                <div class="heatmap-cell g-stage" id="cell-g1-a1">Low</div>
+                <div class="heatmap-cell y-stage" id="cell-g1-a2">Moderate</div>
+                <div class="heatmap-cell o-stage" id="cell-g1-a3">High</div>
+
+                <!-- G2 Stage -->
+                <div class="heatmap-cell heatmap-header">60-89</div>
+                <div class="heatmap-cell g-stage" id="cell-g2-a1">Low</div>
+                <div class="heatmap-cell y-stage" id="cell-g2-a2">Moderate</div>
+                <div class="heatmap-cell o-stage" id="cell-g2-a3">High</div>
+
+                <!-- G3a Stage -->
+                <div class="heatmap-cell heatmap-header">45-59</div>
+                <div class="heatmap-cell y-stage" id="cell-g3a-a1">Moderate</div>
+                <div class="heatmap-cell o-stage" id="cell-g3a-a2">High</div>
+                <div class="heatmap-cell r-stage" id="cell-g3a-a3">Very High</div>
+
+                <!-- G3b Stage -->
+                <div class="heatmap-cell heatmap-header">30-44</div>
+                <div class="heatmap-cell o-stage" id="cell-g3b-a1">High</div>
+                <div class="heatmap-cell r-stage" id="cell-g3b-a2">Very High</div>
+                <div class="heatmap-cell r-stage" id="cell-g3b-a3">Very High</div>
+
+                <!-- G4/G5 Stage -->
+                <div class="heatmap-cell heatmap-header">&lt;30</div>
+                <div class="heatmap-cell r-stage" id="cell-g45-a1">Very High</div>
+                <div class="heatmap-cell r-stage" id="cell-g45-a2">Very High</div>
+                <div class="heatmap-cell r-stage" id="cell-g45-a3">Very High</div>
+            </div>
+
+            <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800">
+                <h4 class="font-bold">Important Disclaimer</h4>
+                <p class="text-sm">All tools on this page are for educational purposes only and are not a substitute for professional medical advice. Always discuss results with a qualified nephrologist.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    // --- eGFR Calculator Logic ---
+    const calculateGfrBtn = document.getElementById('calculate-gfr-btn');
+    const gfrResultContainer = document.getElementById('gfr-result-container');
+    const egfrResultEl = document.getElementById('egfr-result');
+    const stageInfoEl = document.getElementById('stage-info');
+    const stageTextEl = document.getElementById('stage-text');
+
+    calculateGfrBtn.addEventListener('click', () => {
+        const creatinine = parseFloat(document.getElementById('creatinine').value);
+        const age = parseInt(document.getElementById('age').value);
+        const sex = document.querySelector('input[name="sex"]:checked').value;
+
+        if (isNaN(creatinine) || isNaN(age) || !sex || creatinine <= 0 || age <= 0) {
+            alert('Please enter valid, positive values for all eGFR fields.');
+            return;
+        }
+
+        const kappa = sex === 'female' ? 0.7 : 0.9;
+        const alpha = sex === 'female' ? -0.241 : -0.302;
+        const sex_factor = sex === 'female' ? 1.012 : 1;
+        const scr_over_kappa = creatinine / kappa;
+        
+        let egfr = 142 * Math.pow(Math.min(scr_over_kappa, 1), alpha) * Math.pow(Math.max(scr_over_kappa, 1), -1.200) * Math.pow(0.9938, age) * sex_factor;
+        egfr = Math.round(egfr);
+
+        egfrResultEl.textContent = egfr;
+        gfrResultContainer.style.display = 'flex';
+        
+        document.getElementById('kfre-age').value = age;
+        document.getElementById('kfre-sex').value = sex;
+        document.getElementById('kfre-egfr').value = egfr;
+
+        if (egfr >= 90) { stageTextEl.textContent = 'Stage 1: Normal or high'; stageInfoEl.style.backgroundColor = '#22c55e'; } 
+        else if (egfr >= 60) { stageTextEl.textContent = 'Stage 2: Mildly decreased'; stageInfoEl.style.backgroundColor = '#a3e635'; }
+        else if (egfr >= 45) { stageTextEl.textContent = 'Stage 3a: Mild to moderate'; stageInfoEl.style.backgroundColor = '#facc15'; }
+        else if (egfr >= 30) { stageTextEl.textContent = 'Stage 3b: Moderate to severe'; stageInfoEl.style.backgroundColor = '#f97316'; }
+        else if (egfr >= 15) { stageTextEl.textContent = 'Stage 4: Severely decreased'; stageInfoEl.style.backgroundColor = '#ef4444'; }
+        else { stageTextEl.textContent = 'Stage 5: Kidney Failure'; stageInfoEl.style.backgroundColor = '#b91c1c'; }
+    });
+
+    // --- KFRE and Heatmap Logic ---
+    const calculateKfreBtn = document.getElementById('calculate-kfre-btn');
+    const kfreResultContainer = document.getElementById('kfre-result-container');
+    const kfre2yrResultEl = document.getElementById('kfre-2yr-result');
+    const kfre5yrResultEl = document.getElementById('kfre-5yr-result');
+
+    calculateKfreBtn.addEventListener('click', () => {
+        const age = parseInt(document.getElementById('kfre-age').value);
+        const sex = document.getElementById('kfre-sex').value;
+        const egfr = parseInt(document.getElementById('kfre-egfr').value);
+        const uacr = parseFloat(document.getElementById('kfre-uacr').value);
+
+        if (isNaN(age) || !sex || isNaN(egfr) || isNaN(uacr) || age <= 0 || egfr <= 0 || uacr < 0) {
+            alert('Please enter valid, positive values for all KFRE fields.');
+            return;
+        }
+
+        // KFRE Calculation
+        const isFemale = (sex === 'female') ? 1 : 0;
+        const logUacr = Math.log(uacr);
+        const lp_2yr = (-0.2698 * (age / 10)) + (-0.4634 * (egfr / 5)) + (0.2331 * logUacr) + (-0.1661 * isFemale);
+        const lp_5yr = (-0.5153 * (age / 10)) + (-0.5438 * (egfr / 5)) + (0.2974 * logUacr) + (-0.2038 * isFemale);
+        const baseline_survival_2yr = 0.985;
+        const baseline_survival_5yr = 0.953;
+        const risk_2yr = 1 - Math.pow(baseline_survival_2yr, Math.exp(lp_2yr));
+        const risk_5yr = 1 - Math.pow(baseline_survival_5yr, Math.exp(lp_5yr));
+
+        kfre2yrResultEl.textContent = (risk_2yr * 100).toFixed(1) + '%';
+        kfre5yrResultEl.textContent = (risk_5yr * 100).toFixed(1) + '%';
+        kfreResultContainer.style.display = 'flex';
+
+        // Heatmap Highlighting Logic
+        updateHeatmap(egfr, uacr);
+    });
+
+    function updateHeatmap(egfr, uacr) {
+        // Clear previous highlight
+        document.querySelectorAll('.heatmap-cell').forEach(c => c.classList.remove('highlight-cell'));
+
+        // Determine G-stage (row)
+        let gStage;
+        if (egfr >= 90) gStage = 'g1';
+        else if (egfr >= 60) gStage = 'g2';
+        else if (egfr >= 45) gStage = 'g3a';
+        else if (egfr >= 30) gStage = 'g3b';
+        else gStage = 'g45';
+
+        // Determine A-stage (column)
+        let aStage;
+        if (uacr < 30) aStage = 'a1';
+        else if (uacr <= 300) aStage = 'a2';
+        else aStage = 'a3';
+
+        // Highlight the correct cell
+        const cellId = `cell-${gStage}-${aStage}`;
+        const targetCell = document.getElementById(cellId);
+        if(targetCell) {
+            targetCell.classList.add('highlight-cell');
+        }
+    }
+</script>

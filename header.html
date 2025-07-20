@@ -1,0 +1,48 @@
+<header>
+    <div class="container">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">NF</div>
+                <div class="logo-text">
+                    <h1>NephroFoundation</h1>
+                    <p>Your Guide to Kidney Health</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="index.html" data-navlink="home">Home</a></li>
+                    <li><a href="about.html" data-navlink="about">About Me</a></li>
+                    <li><a href="patient-hub.html" data-navlink="education">Patient Education</a></li>
+                    <li><a href="tools.html" data-navlink="tools">Kidney Health Tools</a></li>
+                    <li><a href="resources.html" data-navlink="resources">Resources</a></li>
+                    <li><a href="contact.html" data-navlink="contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<script>
+    function setActiveNavLink() {
+        const currentPage = window.location.pathname.split('/').pop();
+        const navLinks = document.querySelectorAll('nav a');
+
+        navLinks.forEach(link => {
+            const linkPage = link.getAttribute('href').split('#')[0];
+            
+            link.style.color = '#374151';
+            link.style.fontWeight = '500';
+
+            if (currentPage === linkPage || (currentPage === '' && linkPage === 'index.html')) {
+                link.style.color = '#1d4ed8';
+                link.style.fontWeight = '600';
+            }
+        });
+    }
+    
+    if(document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', setActiveNavLink);
+    } else {
+        setActiveNavLink();
+    }
+</script>

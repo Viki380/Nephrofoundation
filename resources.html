@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Resources | NephroFoundation</title>
+    <meta name="description" content="Download printable health trackers and find links to trusted kidney health organizations.">
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Header will be loaded here -->
+    <div id="header-placeholder"></div>
+
+    <!-- Page-specific content will be loaded here -->
+    <div id="content-placeholder"></div>
+
+    <!-- Footer will be loaded here -->
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // --- Script to load components and initialize page ---
+        const loadComponent = async (url, placeholderId) => {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`File not found: ${url}`);
+                const data = await response.text();
+                document.getElementById(placeholderId).innerHTML = data;
+            } catch (error) {
+                console.error(`Error loading ${url}:`, error);
+            }
+        };
+
+        const initializePage = async () => {
+            await Promise.all([
+                loadComponent('header.html', 'header-placeholder'),
+                loadComponent('resources-content.html', 'content-placeholder'),
+                loadComponent('footer.html', 'footer-placeholder')
+            ]);
+        };
+        
+        document.addEventListener("DOMContentLoaded", initializePage);
+    </script>
+</body>
+</html>
