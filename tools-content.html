@@ -1,82 +1,714 @@
-<main>
-    <!-- Page Title Hero -->
-    <section class="hero" style="padding: 60px 0;">
-        <div class="container">
-            <div class="hero-content">
-                <div class="section-icon monitoring mx-auto mb-4">🧮</div>
-                <h2 style="font-size: 2.5rem;">Kidney Health Tools</h2>
-                <p style="font-size: 1.1rem;">Interactive tools to help you understand your kidney health metrics.</p>
-            </div>
-        </div>
-    </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Kidney Health Tools</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- New Two-Column Section for eGFR and Heatmap -->
-    <section class="py-16 bg-white">
-        <div class="container">
-            <div class="grid lg:grid-cols-2 gap-12">
-                
-                <!-- Left Column: eGFR Calculator -->
-                <div style="max-width: 800px;">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">eGFR Calculator (CKD-EPI 2021)</h3>
-                    <p class="text-gray-600 text-center mb-4">
-                        Estimate your Glomerular Filtration Rate (eGFR).
-                    </p>
-                    <p class="text-xs text-gray-500 text-center mb-8">
-                        Reference: Inker LA, Eneanya ND, et al. for the CKD-EPI Collaboration. N Engl J Med. 2021.
-                    </p>
-                    <div class="doctor-card" style="background: #ffffff; border: 1px solid #e5e7eb;">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="space-y-4">
-                                <div><label for="creatinine" class="block text-sm font-medium text-gray-700">Serum Creatinine</label><div class="flex items-center mt-1"><input type="number" step="0.01" name="creatinine" id="creatinine" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"><span class="ml-3 text-gray-500">mg/dL</span></div></div>
-                                <div><label for="age" class="block text-sm font-medium text-gray-700">Age</label><input type="number" name="age" id="age" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
-                                <div><label class="block text-sm font-medium text-gray-700">Sex</label><div class="mt-2 flex space-x-4"><label class="flex items-center"><input type="radio" name="sex" value="male" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"><span class="ml-2 text-gray-700">Male</span></label><label class="flex items-center"><input type="radio" name="sex" value="female" checked class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"><span class="ml-2 text-gray-700">Female</span></label></div></div>
-                                <div><button id="calculate-gfr-btn" class="w-full cta-button" style="background: linear-gradient(45deg, #22c55e, #16a34a); padding: 10px 25px;">Calculate eGFR</button></div>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h2 {
+            margin: 20px 0 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Enhanced Cards */
+        .doctor-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doctor-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+            z-index: -1;
+            border-radius: 22px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .doctor-card:hover::before {
+            opacity: 1;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f9fafb;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .input-with-unit {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .unit-label {
+            color: #6b7280;
+            font-weight: 500;
+            min-width: 60px;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background-color 0.2s ease;
+        }
+
+        .radio-option:hover {
+            background-color: #f3f4f6;
+        }
+
+        input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+        }
+
+        /* Enhanced Button */
+        .cta-button {
+            display: inline-block;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .calculate-btn {
+            background: linear-gradient(45deg, #22c55e, #16a34a);
+            width: 100%;
+        }
+
+        .kfre-btn {
+            background: linear-gradient(45deg, #c3ec0b, #daee03);
+            color: #374151 !important;
+        }
+
+        /* Results Container */
+        .result-container {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            border: 2px solid #e5e7eb;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-value {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #667eea;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stage-info {
+            padding: 16px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-weight: 600;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        /* Heatmap Enhancements */
+        .heatmap-container {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .heatmap-grid {
+            display: grid;
+            grid-template-columns: 100px repeat(3, 1fr);
+            gap: 2px;
+            background: #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .heatmap-cell {
+            padding: 12px 8px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .heatmap-cell:hover {
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .heatmap-header {
+            background: linear-gradient(135deg, #374151, #4b5563);
+            color: white;
+            font-weight: 700;
+        }
+
+        .g-stage { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+        .y-stage { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; }
+        .o-stage { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
+        .r-stage { background: linear-gradient(135deg, #7c2d12, #991b1b); color: white; }
+
+        .highlighted {
+            animation: highlight 2s ease-in-out infinite;
+            transform: scale(1.1);
+            z-index: 20;
+        }
+
+        @keyframes highlight {
+            0%, 100% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.6); }
+            50% { box-shadow: 0 0 30px rgba(102, 126, 234, 0.9); }
+        }
+
+        /* Grid Layout */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        @media (max-width: 1024px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 4px solid #f59e0b;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .disclaimer h4 {
+            color: #92400e;
+            margin-bottom: 10px;
+        }
+
+        .disclaimer p {
+            color: #78350f;
+            font-size: 14px;
+        }
+
+        /* Tooltips */
+        .tooltip {
+            position: relative;
+            cursor: help;
+        }
+
+        .tooltip::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 125%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #374151;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .tooltip:hover::after {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, transparent);
+            margin: 40px 0;
+            border-radius: 1px;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <!-- Enhanced Hero Section -->
+        <section class="hero" style="padding: 80px 0;">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="section-icon mx-auto">🧮</div>
+                    <h2 style="font-size: 2.5rem;">Advanced Kidney Health Tools</h2>
+                    <p style="font-size: 1.1rem;">Interactive calculators and visualizations to help you understand and monitor your kidney health metrics with precision.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Tools Section -->
+        <section style="padding: 80px 0; background: transparent;">
+            <div class="container">
+                <div class="tools-grid">
+                    
+                    <!-- Enhanced eGFR Calculator -->
+                    <div>
+                        <h3 style="font-size: 1.8rem; font-weight: bold; color: #374151; margin-bottom: 8px; text-align: center;">eGFR Calculator (CKD-EPI 2021)</h3>
+                        <p style="color: #6b7280; text-align: center; margin-bottom: 16px;">
+                            Calculate your estimated Glomerular Filtration Rate with enhanced precision.
+                        </p>
+                        <p style="font-size: 12px; color: #9ca3af; text-align: center; margin-bottom: 32px;">
+                            Reference: Inker LA, Eneanya ND, et al. for the CKD-EPI Collaboration. N Engl J Med. 2021.
+                        </p>
+                        
+                        <div class="doctor-card">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                                <div style="space-y: 20px;">
+                                    <div class="form-group">
+                                        <label for="creatinine" class="tooltip" data-tooltip="Normal range: 0.6-1.3 mg/dL">
+                                            Serum Creatinine *
+                                        </label>
+                                        <div class="input-with-unit">
+                                            <input type="number" step="0.01" min="0.1" max="20" id="creatinine" placeholder="Enter value">
+                                            <span class="unit-label">mg/dL</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="age">Age *</label>
+                                        <input type="number" min="18" max="120" id="age" placeholder="Enter age">
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Sex *</label>
+                                        <div class="radio-group">
+                                            <label class="radio-option">
+                                                <input type="radio" name="sex" value="male">
+                                                <span>Male</span>
+                                            </label>
+                                            <label class="radio-option">
+                                                <input type="radio" name="sex" value="female" checked>
+                                                <span>Female</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <button id="calculate-gfr-btn" class="cta-button calculate-btn">
+                                        <span id="btn-text">Calculate eGFR</span>
+                                        <span id="btn-loading" class="loading hidden"></span>
+                                    </button>
+                                </div>
+                                
+                                <div id="gfr-result-container" class="result-container hidden">
+                                    <p style="color: #6b7280; font-weight: 600; margin-bottom: 8px;">Your Estimated GFR:</p>
+                                    <p id="egfr-result" class="result-value">--</p>
+                                    <p style="color: #6b7280; font-weight: 600; margin-bottom: 20px;">mL/min/1.73m²</p>
+                                    <div id="stage-info" class="stage-info">
+                                        <p id="stage-text"></p>
+                                    </div>
+                                    <div id="interpretation" style="margin-top: 20px; padding: 16px; background: #f3f4f6; border-radius: 12px; text-align: left;">
+                                        <h4 style="font-weight: 600; margin-bottom: 8px; color: #374151;">Clinical Interpretation:</h4>
+                                        <p id="interpretation-text" style="font-size: 14px; color: #6b7280;"></p>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="gfr-result-container" class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg text-center" style="display: none;"><p class="text-gray-600 font-medium">Your Estimated GFR is:</p><p id="egfr-result" class="text-5xl font-bold text-blue-600 my-2">--</p><p class="text-gray-600 font-medium mb-4">mL/min/1.73m²</p><div id="stage-info" class="w-full p-3 rounded-md text-white font-semibold"><p id="stage-text"></p></div></div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Right Column: KDIGO Heatmap -->
-                <div style="max-width: 800px;">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">KDIGO CKD Prognosis Heatmap</h3>
-                    <p class="text-gray-600 text-center mb-4">Visually understand your risk based on eGFR and albuminuria categories.</p>
-                    <p class="text-xs text-gray-500 text-center mb-8">Source: KDIGO 2012 Clinical Practice Guideline for the Evaluation and Management of CKD.</p>
-                    <div class="heatmap-grid">
-                        <!-- Headers -->
-                        <div class="heatmap-cell heatmap-header">eGFR</div>
-                        <div class="heatmap-cell heatmap-header">Normal<br/>(&lt;30 mg/g)</div>
-                        <div class="heatmap-cell heatmap-header">High<br/>(30-300 mg/g)</div>
-                        <div class="heatmap-cell heatmap-header">Very High<br/>(&gt;300 mg/g)</div>
-                        <!-- G1 Stage --><div class="heatmap-cell heatmap-header">&gt;90</div><div class="heatmap-cell g-stage" id="cell-g1-a1">Low</div><div class="heatmap-cell y-stage" id="cell-g1-a2">Moderate</div><div class="heatmap-cell o-stage" id="cell-g1-a3">High</div>
-                        <!-- G2 Stage --><div class="heatmap-cell heatmap-header">60-89</div><div class="heatmap-cell g-stage" id="cell-g2-a1">Low</div><div class="heatmap-cell y-stage" id="cell-g2-a2">Moderate</div><div class="heatmap-cell o-stage" id="cell-g2-a3">High</div>
-                        <!-- G3a Stage --><div class="heatmap-cell heatmap-header">45-59</div><div class="heatmap-cell y-stage" id="cell-g3a-a1">Moderate</div><div class="heatmap-cell o-stage" id="cell-g3a-a2">High</div><div class="heatmap-cell r-stage" id="cell-g3a-a3">Very High</div>
-                        <!-- G3b Stage --><div class="heatmap-cell heatmap-header">30-44</div><div class="heatmap-cell o-stage" id="cell-g3b-a1">High</div><div class="heatmap-cell r-stage" id="cell-g3b-a2">Very High</div><div class="heatmap-cell r-stage" id="cell-g3b-a3">Very High</div>
-                        <!-- G4/G5 Stage --><div class="heatmap-cell heatmap-header">&lt;30</div><div class="heatmap-cell r-stage" id="cell-g45-a1">Very High</div><div class="heatmap-cell r-stage" id="cell-g45-a2">Very High</div><div class="heatmap-cell r-stage" id="cell-g45-a3">Very High</div>
+                    <!-- Enhanced KDIGO Heatmap -->
+                    <div>
+                        <h3 style="font-size: 1.8rem; font-weight: bold; color: #374151; margin-bottom: 8px; text-align: center;">KDIGO CKD Risk Assessment</h3>
+                        <p style="color: #6b7280; text-align: center; margin-bottom: 16px;">Interactive risk visualization based on eGFR and albuminuria levels.</p>
+                        <p style="font-size: 12px; color: #9ca3af; text-align: center; margin-bottom: 32px;">Source: KDIGO 2012 Clinical Practice Guideline for CKD Management.</p>
+                        
+                        <div class="heatmap-container">
+                            <div class="heatmap-grid">
+                                <!-- Headers -->
+                                <div class="heatmap-cell heatmap-header">eGFR<br/>Range</div>
+                                <div class="heatmap-cell heatmap-header tooltip" data-tooltip="ACR < 30 mg/g">Normal<br/>(&lt;30 mg/g)</div>
+                                <div class="heatmap-cell heatmap-header tooltip" data-tooltip="ACR 30-300 mg/g">High<br/>(30-300 mg/g)</div>
+                                <div class="heatmap-cell heatmap-header tooltip" data-tooltip="ACR > 300 mg/g">Very High<br/>(&gt;300 mg/g)</div>
+                                
+                                <!-- G1 Stage -->
+                                <div class="heatmap-cell heatmap-header">&gt;90</div>
+                                <div class="heatmap-cell g-stage" id="cell-g1-a1" data-stage="G1" data-albuminuria="A1">Low Risk</div>
+                                <div class="heatmap-cell y-stage" id="cell-g1-a2" data-stage="G1" data-albuminuria="A2">Moderate Risk</div>
+                                <div class="heatmap-cell o-stage" id="cell-g1-a3" data-stage="G1" data-albuminuria="A3">High Risk</div>
+                                
+                                <!-- G2 Stage -->
+                                <div class="heatmap-cell heatmap-header">60-89</div>
+                                <div class="heatmap-cell g-stage" id="cell-g2-a1" data-stage="G2" data-albuminuria="A1">Low Risk</div>
+                                <div class="heatmap-cell y-stage" id="cell-g2-a2" data-stage="G2" data-albuminuria="A2">Moderate Risk</div>
+                                <div class="heatmap-cell o-stage" id="cell-g2-a3" data-stage="G2" data-albuminuria="A3">High Risk</div>
+                                
+                                <!-- G3a Stage -->
+                                <div class="heatmap-cell heatmap-header">45-59</div>
+                                <div class="heatmap-cell y-stage" id="cell-g3a-a1" data-stage="G3a" data-albuminuria="A1">Moderate Risk</div>
+                                <div class="heatmap-cell o-stage" id="cell-g3a-a2" data-stage="G3a" data-albuminuria="A2">High Risk</div>
+                                <div class="heatmap-cell r-stage" id="cell-g3a-a3" data-stage="G3a" data-albuminuria="A3">Very High Risk</div>
+                                
+                                <!-- G3b Stage -->
+                                <div class="heatmap-cell heatmap-header">30-44</div>
+                                <div class="heatmap-cell o-stage" id="cell-g3b-a1" data-stage="G3b" data-albuminuria="A1">High Risk</div>
+                                <div class="heatmap-cell r-stage" id="cell-g3b-a2" data-stage="G3b" data-albuminuria="A2">Very High Risk</div>
+                                <div class="heatmap-cell r-stage" id="cell-g3b-a3" data-stage="G3b" data-albuminuria="A3">Very High Risk</div>
+                                
+                                <!-- G4/G5 Stage -->
+                                <div class="heatmap-cell heatmap-header">&lt;30</div>
+                                <div class="heatmap-cell r-stage" id="cell-g45-a1" data-stage="G4-G5" data-albuminuria="A1">Very High Risk</div>
+                                <div class="heatmap-cell r-stage" id="cell-g45-a2" data-stage="G4-G5" data-albuminuria="A2">Very High Risk</div>
+                                <div class="heatmap-cell r-stage" id="cell-g45-a3" data-stage="G4-G5" data-albuminuria="A3">Very High Risk</div>
+                            </div>
+                            
+                            <div id="heatmap-info" style="margin-top: 20px; padding: 16px; background: #f8fafc; border-radius: 12px; border-left: 4px solid #667eea;">
+                                <p style="font-size: 14px; color: #374151; font-weight: 500;">
+                                    Click on any cell to learn more about that risk category, or calculate your eGFR to see your position highlighted.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </div>
-        </div>
-    </section>
-    
-    <!-- KFRE Link Section (Now below the two-column grid) -->
-    <section class="pb-16 bg-white">
-        <div class="container" style="max-width: 800px;">
-            <hr class="mb-12"/>
-            <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Kidney Failure Risk Equation (KFRE)</h3>
-            <p class="text-gray-600 text-center mb-8">
-                The KFRE is a validated tool to predict the 2-year and 5-year risk of progressing to kidney failure. We recommend using the official, interactive calculator for the most accurate results.
-            </p>
-            <div class="text-center">
-                <a href="https://kidneyfailurerisk.com/" target="_blank" rel="noopener noreferrer" class="cta-button" style="background: linear-gradient(45deg, #c3ec0b, #daee03); padding: 12px 30px;">
-                    Go to Official KFRE Calculator
-                </a>
+        </section>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Enhanced KFRE Section -->
+        <section style="padding: 60px 0; background: transparent;">
+            <div class="container" style="max-width: 800px;">
+                <h3 style="font-size: 1.8rem; font-weight: bold; color: #374151; margin-bottom: 8px; text-align: center;">Kidney Failure Risk Equation (KFRE)</h3>
+                <p style="color: #6b7280; text-align: center; margin-bottom: 32px;">
+                    The KFRE provides validated predictions for 2-year and 5-year kidney failure risk progression. For comprehensive risk assessment with personalized recommendations, we direct you to the official calculator.
+                </p>
+                <div style="text-align: center;">
+                    <a href="https://kidneyfailurerisk.com/" target="_blank" rel="noopener noreferrer" class="cta-button kfre-btn">
+                        Access Official KFRE Calculator →
+                    </a>
+                </div>
+                
+                <div class="disclaimer">
+                    <h4>🛡️ Important Medical Disclaimer</h4>
+                    <p>All calculators and tools on this page are designed for educational and informational purposes only. They are not intended to replace professional medical advice, diagnosis, or treatment. Always consult with a qualified nephrologist or healthcare provider for personalized medical guidance and interpretation of your results.</p>
+                </div>
             </div>
-            <div class="mt-12 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800">
-                <h4 class="font-bold">Important Disclaimer</h4>
-                <p class="text-sm">All tools on this page are for educational purposes only and are not a substitute for professional medical advice. Always discuss results with a qualified nephrologist.</p>
-            </div>
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
+
+    <script>
+        class KidneyHealthCalculator {
+            constructor() {
+                this.initializeEventListeners();
+                this.initializeHeatmap();
+            }
+
+            initializeEventListeners() {
+                const calculateBtn = document.getElementById('calculate-gfr-btn');
+                const inputs = ['creatinine', 'age'];
+                
+                calculateBtn.addEventListener('click', () => this.calculateEGFR());
+                
+                // Real-time validation
+                inputs.forEach(inputId => {
+                    const input = document.getElementById(inputId);
+                    input.addEventListener('input', () => this.validateInput(input));
+                    input.addEventListener('blur', () => this.validateInput(input));
+                });
+            }
+
+            initializeHeatmap() {
+                const cells = document.querySelectorAll('.heatmap-cell:not(.heatmap-header)');
+                cells.forEach(cell => {
+                    cell.addEventListener('click', () => this.showCellInfo(cell));
+                });
+            }
+
+            validateInput(input) {
+                const value = parseFloat(input.value);
+                input.style.borderColor = '#e5e7eb';
+                
+                if (input.id === 'creatinine' && value) {
+                    if (value < 0.1 || value > 20) {
+                        input.style.borderColor = '#ef4444';
+                    } else if (value > 1.3 || value < 0.6) {
+                        input.style.borderColor = '#f59e0b';
+                    } else {
+                        input.style.borderColor = '#10b981';
+                    }
+                }
+                
+                if (input.id === 'age' && value) {
+                    if (value < 18 || value > 120) {
+                        input.style.borderColor = '#ef4444';
+                    } else {
+                        input.style.borderColor = '#10b981';
+                    }
+                }
+            }
+
+            async calculateEGFR() {
+                const creatinine = parseFloat(document.getElementById('creatinine').value);
+                const age = parseInt(document.getElementById('age').value);
+                const sex = document.querySelector('input[name="sex"]:checked').value;
+
+                // Validation
+                if (!this.validateInputs(creatinine, age)) return;
+
+                // Show loading state
+                this.showLoading(true);
+
+                // Simulate API call delay for better UX
+                await new Promise(resolve => setTimeout(resolve, 800));
+
+                // Calculate eGFR using CKD-EPI 2021 equation
+                const egfr = this.calculateCKDEPI2021(creatinine, age, sex);
+                
+                // Display results
+                this.displayResults(egfr);
+                this.highlightHeatmapCell(egfr);
+                
+                this.showLoading(false);
+            }
+
+            validateInputs(creatinine, age) {
+                const errors = [];
+                
+                if (!creatinine || creatinine <= 0 || creatinine > 20) {
+                    errors.push('Please enter a valid creatinine value (0.1-20 mg/dL)');
+                }
+                
+                if (!age || age < 18 || age > 120) {
+                    errors.push('Please enter a valid age (18-120 years)');
+                }
+
+                if (errors.length > 0) {
+                    this.showError(errors.join('\n'));
+                    return false;
+                }
+                
+                return true;
+            }
+
+            calculateCKDEPI2021(creatinine, age, sex) {
+                // CKD-EPI 2021 equation (race-free version)
+                const kappa = sex === 'female' ? 0.7 : 0.9;
+                const alpha = sex === 'female' ? -0.241 : -0.302;
+                const sexFactor = sex === 'female' ? 1.012 : 1.0;
+                
+                const minTerm = Math.min(creatinine / kappa, 1.0);
+                const maxTerm = Math.max(creatinine / kappa, 1.0);
+                
+                const egfr = 142 * Math.pow(minTerm, alpha) * Math.pow(maxTerm, -1.200) * Math.pow(0.9938, age) * sexFactor;
+                
+                return Math.round(egfr);
+            }
+
+            displayResults(egfr) {
+                const resultContainer = document.getElementById('gfr-result-container');
+                const egfrResult = document.getElementById('egfr-result');
+                const stageInfo = document.getElementById('stage-info');
+                const stageText = document.getElementById('stage-text');
+                const interpretationText = document.getElementById('interpretation-text');
+
+                egfrResult.textContent = egfr;
+                
+                const stageData = this.getStageInfo(egfr);
+                stageInfo.style.background = stageData.color;
+                stageText.textContent = stageData.stage;
+                interpretationText.textContent = stageData.interpretation;
+
+                resultContainer.classList.remove('hidden');
+                resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            getStageInfo(egfr) {
+                if (egfr >= 90) {
+                    return {
+                        stage: 'Stage 1 (G1): Normal or High Function',
+                        color: 'linear-gradient(135deg, #10b981, #059669
