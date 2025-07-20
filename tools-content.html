@@ -10,68 +10,70 @@
         </div>
     </section>
 
-    <!-- eGFR Calculator Section -->
-    <section class="pt-16 pb-8 bg-white">
-        <div class="container" style="max-width: 800px;">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">eGFR Calculator (CKD-EPI 2021)</h3>
-            <p class="text-gray-600 text-center mb-4">
-                Estimate your Glomerular Filtration Rate (eGFR).
-            </p>
-            <p class="text-xs text-gray-500 text-center mb-8">
-                Reference: Inker LA, Eneanya ND, et al. for the CKD-EPI Collaboration. N Engl J Med. 2021.
-            </p>
-            <div class="doctor-card" style="background: #ffffff; border: 1px solid #e5e7eb;">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="space-y-4">
-                        <div><label for="creatinine" class="block text-sm font-medium text-gray-700">Serum Creatinine</label><div class="flex items-center mt-1"><input type="number" step="0.01" name="creatinine" id="creatinine" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"><span class="ml-3 text-gray-500">mg/dL</span></div></div>
-                        <div><label for="age" class="block text-sm font-medium text-gray-700">Age</label><input type="number" name="age" id="age" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
-                        <div><label class="block text-sm font-medium text-gray-700">Sex</label><div class="mt-2 flex space-x-4"><label class="flex items-center"><input type="radio" name="sex" value="male" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"><span class="ml-2 text-gray-700">Male</span></label><label class="flex items-center"><input type="radio" name="sex" value="female" checked class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"><span class="ml-2 text-gray-700">Female</span></label></div></div>
-                        <div><button id="calculate-gfr-btn" class="w-full cta-button" style="background: linear-gradient(45deg, #22c55e, #16a34a); padding: 10px 25px;">Calculate eGFR</button></div>
+    <!-- New Two-Column Section for eGFR and Heatmap -->
+    <section class="py-16 bg-white">
+        <div class="container">
+            <div class="grid lg:grid-cols-2 gap-12">
+                
+                <!-- Left Column: eGFR Calculator -->
+                <div style="max-width: 800px;">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">eGFR Calculator (CKD-EPI 2021)</h3>
+                    <p class="text-gray-600 text-center mb-4">
+                        Estimate your Glomerular Filtration Rate (eGFR).
+                    </p>
+                    <p class="text-xs text-gray-500 text-center mb-8">
+                        Reference: Inker LA, Eneanya ND, et al. for the CKD-EPI Collaboration. N Engl J Med. 2021.
+                    </p>
+                    <div class="doctor-card" style="background: #ffffff; border: 1px solid #e5e7eb;">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="space-y-4">
+                                <div><label for="creatinine" class="block text-sm font-medium text-gray-700">Serum Creatinine</label><div class="flex items-center mt-1"><input type="number" step="0.01" name="creatinine" id="creatinine" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"><span class="ml-3 text-gray-500">mg/dL</span></div></div>
+                                <div><label for="age" class="block text-sm font-medium text-gray-700">Age</label><input type="number" name="age" id="age" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
+                                <div><label class="block text-sm font-medium text-gray-700">Sex</label><div class="mt-2 flex space-x-4"><label class="flex items-center"><input type="radio" name="sex" value="male" class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"><span class="ml-2 text-gray-700">Male</span></label><label class="flex items-center"><input type="radio" name="sex" value="female" checked class="h-4 w-4 text-blue-600 border-gray-300 focus:ring-blue-500"><span class="ml-2 text-gray-700">Female</span></label></div></div>
+                                <div><button id="calculate-gfr-btn" class="w-full cta-button" style="background: linear-gradient(45deg, #22c55e, #16a34a); padding: 10px 25px;">Calculate eGFR</button></div>
+                            </div>
+                            <div id="gfr-result-container" class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg text-center" style="display: none;"><p class="text-gray-600 font-medium">Your Estimated GFR is:</p><p id="egfr-result" class="text-5xl font-bold text-blue-600 my-2">--</p><p class="text-gray-600 font-medium mb-4">mL/min/1.73m²</p><div id="stage-info" class="w-full p-3 rounded-md text-white font-semibold"><p id="stage-text"></p></div></div>
+                        </div>
                     </div>
-                    <div id="gfr-result-container" class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg text-center" style="display: none;"><p class="text-gray-600 font-medium">Your Estimated GFR is:</p><p id="egfr-result" class="text-5xl font-bold text-blue-600 my-2">--</p><p class="text-gray-600 font-medium mb-4">mL/min/1.73m²</p><div id="stage-info" class="w-full p-3 rounded-md text-white font-semibold"><p id="stage-text"></p></div></div>
                 </div>
+
+                <!-- Right Column: KDIGO Heatmap -->
+                <div style="max-width: 800px;">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">KDIGO CKD Prognosis Heatmap</h3>
+                    <p class="text-gray-600 text-center mb-4">Visually understand your risk based on eGFR and albuminuria categories.</p>
+                    <p class="text-xs text-gray-500 text-center mb-8">Source: KDIGO 2012 Clinical Practice Guideline for the Evaluation and Management of CKD.</p>
+                    <div class="heatmap-grid">
+                        <!-- Headers -->
+                        <div class="heatmap-cell heatmap-header">eGFR</div>
+                        <div class="heatmap-cell heatmap-header">Normal<br/>(&lt;30 mg/g)</div>
+                        <div class="heatmap-cell heatmap-header">High<br/>(30-300 mg/g)</div>
+                        <div class="heatmap-cell heatmap-header">Very High<br/>(&gt;300 mg/g)</div>
+                        <!-- G1 Stage --><div class="heatmap-cell heatmap-header">&gt;90</div><div class="heatmap-cell g-stage" id="cell-g1-a1">Low</div><div class="heatmap-cell y-stage" id="cell-g1-a2">Moderate</div><div class="heatmap-cell o-stage" id="cell-g1-a3">High</div>
+                        <!-- G2 Stage --><div class="heatmap-cell heatmap-header">60-89</div><div class="heatmap-cell g-stage" id="cell-g2-a1">Low</div><div class="heatmap-cell y-stage" id="cell-g2-a2">Moderate</div><div class="heatmap-cell o-stage" id="cell-g2-a3">High</div>
+                        <!-- G3a Stage --><div class="heatmap-cell heatmap-header">45-59</div><div class="heatmap-cell y-stage" id="cell-g3a-a1">Moderate</div><div class="heatmap-cell o-stage" id="cell-g3a-a2">High</div><div class="heatmap-cell r-stage" id="cell-g3a-a3">Very High</div>
+                        <!-- G3b Stage --><div class="heatmap-cell heatmap-header">30-44</div><div class="heatmap-cell o-stage" id="cell-g3b-a1">High</div><div class="heatmap-cell r-stage" id="cell-g3b-a2">Very High</div><div class="heatmap-cell r-stage" id="cell-g3b-a3">Very High</div>
+                        <!-- G4/G5 Stage --><div class="heatmap-cell heatmap-header">&lt;30</div><div class="heatmap-cell r-stage" id="cell-g45-a1">Very High</div><div class="heatmap-cell r-stage" id="cell-g45-a2">Very High</div><div class="heatmap-cell r-stage" id="cell-g45-a3">Very High</div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
     
-    <!-- Divider -->
-    <div class="container"><hr/></div>
-    
-    <!-- KFRE Link Section -->
-    <section class="py-8 bg-white">
+    <!-- KFRE Link Section (Now below the two-column grid) -->
+    <section class="pb-16 bg-white">
         <div class="container" style="max-width: 800px;">
+            <hr class="mb-12"/>
             <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Kidney Failure Risk Equation (KFRE)</h3>
             <p class="text-gray-600 text-center mb-8">
                 The KFRE is a validated tool to predict the 2-year and 5-year risk of progressing to kidney failure. We recommend using the official, interactive calculator for the most accurate results.
             </p>
             <div class="text-center">
-                <a href="https://kidneyfailurerisk.com/" target="_blank" rel="noopener noreferrer" class="cta-button" style="background: linear-gradient(45deg, #c9e60a, #e9f011); padding: 12px 30px;">
+                <a href="https://kidneyfailurerisk.com/" target="_blank" rel="noopener noreferrer" class="cta-button" style="background: linear-gradient(45deg, #c3ec0b, #daee03); padding: 12px 30px;">
                     Go to Official KFRE Calculator
                 </a>
             </div>
-        </div>
-    </section>
-
-    <!-- KDIGO Heatmap Section -->
-    <section class="pt-8 pb-16 bg-white">
-        <div class="container" style="max-width: 800px;">
-            <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">KDIGO CKD Prognosis Heatmap</h3>
-            <p class="text-gray-600 text-center mb-8">Use your eGFR and UACR values to find your risk category on this standard prognosis chart.</p>
-            
-            <div class="heatmap-grid">
-                <!-- Headers -->
-                <div class="heatmap-cell heatmap-header">eGFR</div>
-                <div class="heatmap-cell heatmap-header">Normal<br/>(&lt;30 mg/g)</div>
-                <div class="heatmap-cell heatmap-header">High<br/>(30-300 mg/g)</div>
-                <div class="heatmap-cell heatmap-header">Very High<br/>(&gt;300 mg/g)</div>
-                <!-- G1 Stage --><div class="heatmap-cell heatmap-header">&gt;90</div><div class="heatmap-cell g-stage" id="cell-g1-a1">Low</div><div class="heatmap-cell y-stage" id="cell-g1-a2">Moderate</div><div class="heatmap-cell o-stage" id="cell-g1-a3">High</div>
-                <!-- G2 Stage --><div class="heatmap-cell heatmap-header">60-89</div><div class="heatmap-cell g-stage" id="cell-g2-a1">Low</div><div class="heatmap-cell y-stage" id="cell-g2-a2">Moderate</div><div class="heatmap-cell o-stage" id="cell-g2-a3">High</div>
-                <!-- G3a Stage --><div class="heatmap-cell heatmap-header">45-59</div><div class="heatmap-cell y-stage" id="cell-g3a-a1">Moderate</div><div class="heatmap-cell o-stage" id="cell-g3a-a2">High</div><div class="heatmap-cell r-stage" id="cell-g3a-a3">Very High</div>
-                <!-- G3b Stage --><div class="heatmap-cell heatmap-header">30-44</div><div class="heatmap-cell o-stage" id="cell-g3b-a1">High</div><div class="heatmap-cell r-stage" id="cell-g3b-a2">Very High</div><div class="heatmap-cell r-stage" id="cell-g3b-a3">Very High</div>
-                <!-- G4/G5 Stage --><div class="heatmap-cell heatmap-header">&lt;30</div><div class="heatmap-cell r-stage" id="cell-g45-a1">Very High</div><div class="heatmap-cell r-stage" id="cell-g45-a2">Very High</div><div class="heatmap-cell r-stage" id="cell-g45-a3">Very High</div>
-            </div>
-
-            <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800">
+            <div class="mt-12 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-yellow-800">
                 <h4 class="font-bold">Important Disclaimer</h4>
                 <p class="text-sm">All tools on this page are for educational purposes only and are not a substitute for professional medical advice. Always discuss results with a qualified nephrologist.</p>
             </div>
