@@ -23,7 +23,6 @@
         .heatmap-cell { padding: 0.75rem; text-align: center; font-weight: 600; color: #1f2937; transition: all 0.3s ease; }
         .heatmap-header { background-color: #f3f4f6; font-weight: 700; }
         .g-stage { background-color: #dcfce7; } .y-stage { background-color: #fef9c3; } .o-stage { background-color: #ffedd5; } .r-stage { background-color: #fee2e2; }
-        .highlight-cell { box-shadow: 0 0 0 4px #1d4ed8 inset; transform: scale(1.05); z-index: 10; }
     </style>
 </head>
 <body>
@@ -51,7 +50,6 @@
             setupCalculators();
         };
         
-        // --- NEW: All calculator logic is now here ---
         const setupCalculators = () => {
             // eGFR Calculator Logic
             const calculateGfrBtn = document.getElementById('calculate-gfr-btn');
@@ -80,10 +78,6 @@
 
                     egfrResultEl.textContent = egfr;
                     gfrResultContainer.style.display = 'flex';
-                    
-                    document.getElementById('kfre-age').value = age;
-                    document.getElementById('kfre-sex').value = sex;
-                    document.getElementById('kfre-egfr').value = egfr;
 
                     if (egfr >= 90) { stageTextEl.textContent = 'Stage 1: Normal or high'; stageInfoEl.style.backgroundColor = '#22c55e'; } 
                     else if (egfr >= 60) { stageTextEl.textContent = 'Stage 2: Mildly decreased'; stageInfoEl.style.backgroundColor = '#a3e635'; }
@@ -92,57 +86,6 @@
                     else if (egfr >= 15) { stageTextEl.textContent = 'Stage 4: Severely decreased'; stageInfoEl.style.backgroundColor = '#ef4444'; }
                     else { stageTextEl.textContent = 'Stage 5: Kidney Failure'; stageInfoEl.style.backgroundColor = '#b91c1c'; }
                 });
-            }
-
-            // KFRE and Heatmap Logic
-            const calculateKfreBtn = document.getElementById('calculate-kfre-btn');
-            if(calculateKfreBtn) {
-                const kfreResultContainer = document.getElementById('kfre-result-container');
-                const kfre2yrResultEl = document.getElementById('kfre-2yr-result');
-                const kfre5yrResultEl = document.getElementById('kfre-5yr-result');
-
-                calculateKfreBtn.addEventListener('click', () => {
-                    const age = parseInt(document.getElementById('kfre-age').value);
-                    const sex = document.getElementById('kfre-sex').value;
-                    const egfr = parseInt(document.getElementById('kfre-egfr').value);
-                    const uacr = parseFloat(document.getElementById('kfre-uacr').value);
-
-                    if (isNaN(age) || !sex || isNaN(egfr) || isNaN(uacr) || age <= 0 || egfr <= 0 || uacr < 0) {
-                        alert('Please enter valid, positive values for all KFRE fields.'); return;
-                    }
-
-                    const isFemale = (sex === 'female') ? 1 : 0;
-                    const logUacr = Math.log(uacr);
-                    const lp_2yr = (-0.2698 * (age / 10)) + (-0.4634 * (egfr / 5)) + (0.2331 * logUacr) + (-0.1661 * isFemale);
-                    const lp_5yr = (-0.5153 * (age / 10)) + (-0.5438 * (egfr / 5)) + (0.2974 * logUacr) + (-0.2038 * isFemale);
-                    const baseline_survival_2yr = 0.985;
-                    const baseline_survival_5yr = 0.953;
-                    const risk_2yr = 1 - Math.pow(baseline_survival_2yr, Math.exp(lp_2yr));
-                    const risk_5yr = 1 - Math.pow(baseline_survival_5yr, Math.exp(lp_5yr));
-
-                    kfre2yrResultEl.textContent = (risk_2yr * 100).toFixed(1) + '%';
-                    kfre5yrResultEl.textContent = (risk_5yr * 100).toFixed(1) + '%';
-                    kfreResultContainer.style.display = 'flex';
-
-                    updateHeatmap(egfr, uacr);
-                });
-            }
-
-            function updateHeatmap(egfr, uacr) {
-                document.querySelectorAll('.heatmap-cell').forEach(c => c.classList.remove('highlight-cell'));
-                let gStage;
-                if (egfr >= 90) gStage = 'g1';
-                else if (egfr >= 60) gStage = 'g2';
-                else if (egfr >= 45) gStage = 'g3a';
-                else if (egfr >= 30) gStage = 'g3b';
-                else gStage = 'g45';
-                let aStage;
-                if (uacr < 30) aStage = 'a1';
-                else if (uacr <= 300) aStage = 'a2';
-                else aStage = 'a3';
-                const cellId = `cell-${gStage}-${aStage}`;
-                const targetCell = document.getElementById(cellId);
-                if(targetCell) { targetCell.classList.add('highlight-cell'); }
             }
         };
         

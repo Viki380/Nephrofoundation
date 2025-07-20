@@ -37,27 +37,17 @@
     <!-- Divider -->
     <div class="container"><hr/></div>
     
-    <!-- KFRE Calculator Section -->
+    <!-- KFRE Link Section -->
     <section class="py-8 bg-white">
         <div class="container" style="max-width: 800px;">
             <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Kidney Failure Risk Equation (KFRE)</h3>
-            <p class="text-gray-600 text-center mb-4">
-                Predict the 2-year and 5-year risk of progressing to kidney failure.
+            <p class="text-gray-600 text-center mb-8">
+                The KFRE is a validated tool to predict the 2-year and 5-year risk of progressing to kidney failure. We recommend using the official, interactive calculator for the most accurate results.
             </p>
-            <p class="text-xs text-gray-500 text-center mb-8">
-                Reference: Tangri N, et al. for the CKD Prognosis Consortium. JAMA. 2016.
-            </p>
-            <div class="doctor-card" style="background: #ffffff; border: 1px solid #e5e7eb;">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="space-y-4">
-                        <div><label for="kfre-age" class="block text-sm font-medium text-gray-700">Age</label><input type="number" id="kfre-age" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
-                        <div><label for="kfre-sex" class="block text-sm font-medium text-gray-700">Sex</label><select id="kfre-sex" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"><option value="female">Female</option><option value="male">Male</option></select></div>
-                        <div><label for="kfre-egfr" class="block text-sm font-medium text-gray-700">eGFR</label><input type="number" id="kfre-egfr" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></div>
-                        <div><label for="kfre-uacr" class="block text-sm font-medium text-gray-700">Urine Albumin-to-Creatinine Ratio (UACR)</label><div class="flex items-center mt-1"><input type="number" id="kfre-uacr" class="block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"><span class="ml-3 text-gray-500">mg/g</span></div></div>
-                        <div><button id="calculate-kfre-btn" class="w-full cta-button" style="background: linear-gradient(45deg, #3b82f6, #1d4ed8); padding: 10px 25px;">Calculate Risk & See on Heatmap</button></div>
-                    </div>
-                    <div id="kfre-result-container" class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-lg text-center" style="display: none;"><p class="text-gray-600 font-medium mb-4">Predicted Risk of Kidney Failure:</p><div class="w-full flex justify-around"><div class="text-center"><p class="text-4xl font-bold text-orange-600" id="kfre-2yr-result">--%</p><p class="text-sm font-medium text-gray-500">in 2 Years</p></div><div class="text-center"><p class="text-4xl font-bold text-red-600" id="kfre-5yr-result">--%</p><p class="text-sm font-medium text-gray-500">in 5 Years</p></div></div></div>
-                </div>
+            <div class="text-center">
+                <a href="https://kidneyfailurerisk.com/" target="_blank" rel="noopener noreferrer" class="cta-button" style="background: linear-gradient(45deg, #3b82f6, #1d4ed8); padding: 12px 30px;">
+                    Go to Official KFRE Calculator
+                </a>
             </div>
         </div>
     </section>
@@ -66,8 +56,7 @@
     <section class="pt-8 pb-16 bg-white">
         <div class="container" style="max-width: 800px;">
             <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">KDIGO CKD Prognosis Heatmap</h3>
-            <p class="text-gray-600 text-center mb-4">Visually understand your risk based on eGFR and albuminuria categories.</p>
-            <p class="text-xs text-gray-500 text-center mb-8">Source: KDIGO 2012 Clinical Practice Guideline for the Evaluation and Management of CKD.</p>
+            <p class="text-gray-600 text-center mb-8">Use your eGFR and UACR values to find your risk category on this standard prognosis chart.</p>
             
             <div class="heatmap-grid">
                 <!-- Headers -->
@@ -89,5 +78,3 @@
         </div>
     </section>
 </main>
-
-<!-- NOTE: The <script> block has been removed from this file -->
