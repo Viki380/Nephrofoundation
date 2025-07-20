@@ -1,81 +1,475 @@
-<main>
-    <!-- Page Title Hero -->
-    <section class="hero" style="padding: 60px 0;">
-        <div class="container">
-            <div class="hero-content">
-                <h2 style="font-size: 2.5rem;">About Dr. Vignesh</h2>
-                <p style="font-size: 1.1rem;">A commitment to excellence in nephrology and compassionate patient care.</p>
-            </div>
-        </div>
-    </section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Dr. Vignesh - NephroFoundation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Main About Section -->
-    <section class="py-16 bg-white">
-        <div class="container" style="max-width: 900px;">
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="50" cy="10" r="0.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Main Section */
+        .py-16 {
+            padding: 80px 0;
+        }
+
+        .bg-white {
+            background: white;
+        }
+
+        /* Enhanced Doctor Card */
+        .doctor-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: none;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 50px;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .doctor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+        }
+
+        /* Avatar Enhancement */
+        .doctor-avatar {
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            font-weight: bold;
+            margin: 0 auto 20px;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .doctor-avatar:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Text Styling */
+        .text-2xl {
+            font-size: 1.5rem;
+        }
+
+        .font-bold {
+            font-weight: 700;
+        }
+
+        .mt-4 {
+            margin-top: 1rem;
+        }
+
+        .text-gray-800 {
+            color: #1f2937;
+        }
+
+        .font-semibold {
+            font-weight: 600;
+        }
+
+        .text-blue-600 {
+            color: #2563eb;
+        }
+
+        .mt-1 {
+            margin-top: 0.25rem;
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+        }
+
+        .text-gray-500 {
+            color: #6b7280;
+        }
+
+        .text-gray-600 {
+            color: #4b5563;
+        }
+
+        .mb-4 {
+            margin-bottom: 1rem;
+        }
+
+        /* Quote Enhancement */
+        .border-l-4 {
+            border-left: 4px solid #2563eb;
+            padding-left: 20px;
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.05) 0%, transparent 100%);
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .border-l-4::before {
+            content: '"';
+            position: absolute;
+            left: -15px;
+            top: -10px;
+            font-size: 3rem;
+            color: #2563eb;
+            font-family: Georgia, serif;
+            opacity: 0.3;
+        }
+
+        .text-lg {
+            font-size: 1.125rem;
+        }
+
+        .text-gray-700 {
+            color: #374151;
+        }
+
+        .italic {
+            font-style: italic;
+        }
+
+        /* Divider */
+        .my-16 {
+            margin: 4rem 0;
+        }
+
+        hr {
+            border: none;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
+        }
+
+        /* Grid Layout */
+        .grid {
+            display: grid;
+        }
+
+        .md\\:grid-cols-2 {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .gap-12 {
+            gap: 3rem;
+        }
+
+        /* Section Headers */
+        .mb-6 {
+            margin-bottom: 1.5rem;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .items-center {
+            align-items: center;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #3b82f6, #1e40af);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-right: 15px;
+            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .section-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Enhanced List Items */
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+        .p-4 {
+            padding: 1.5rem;
+        }
+
+        .bg-gray-50 {
+            background: linear-gradient(135deg, #f9fafb 0%, #f3f4f6 100%);
+        }
+
+        .border {
+            border: 1px solid #e5e7eb;
+        }
+
+        .border-gray-200 {
+            border-color: #e5e7eb;
+        }
+
+        .rounded-lg {
+            border-radius: 12px;
+        }
+
+        /* Enhanced Education/Mission Cards */
+        .space-y-4 li {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .space-y-4 li::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #3b82f6, #8b5cf6);
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
+        .space-y-4 li:hover::before {
+            transform: scaleY(1);
+        }
+
+        .space-y-4 li:hover {
+            transform: translateX(8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .space-y-4 li h4 {
+            color: #1f2937;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2.2rem;
+            }
             
-            <!-- Doctor Intro Card -->
-            <div class="doctor-card" style="background: #ffffff; border: 1px solid #e5e7eb; padding: 40px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
-                <div class="text-center" style="flex-shrink: 0;">
-                    <div class="doctor-avatar" style="width: 150px; height: 150px; font-size: 56px; margin: 0 auto;">DV</div>
-                    <h3 class="text-2xl font-bold mt-4 text-gray-800">Dr. Vignesh</h3>
-                    <p class="font-semibold text-blue-600 mt-1">DM (Nephrology)</p>
-                    <p class="text-sm text-gray-500">PGIMER, Chandigarh</p>
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .doctor-card {
+                padding: 30px;
+                gap: 30px;
+            }
+            
+            .md\\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+            
+            .gap-12 {
+                gap: 2rem;
+            }
+            
+            .doctor-avatar {
+                width: 140px;
+                height: 140px;
+                font-size: 50px;
+            }
+        }
+
+        /* Add subtle animations */
+        .doctor-card, .space-y-4 li {
+            animation: slideInUp 0.6s ease-out;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Add hover effects for text */
+        .doctor-card h3:hover, 
+        .space-y-4 li h4:hover {
+            color: #2563eb;
+            transition: color 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <!-- Page Title Hero -->
+        <section class="hero" style="padding: 60px 0;">
+            <div class="container">
+                <div class="hero-content">
+                    <h2 style="font-size: 2.5rem;">About Dr. Vignesh</h2>
+                    <p style="font-size: 1.1rem;">A commitment to excellence in nephrology and compassionate patient care.</p>
                 </div>
-                <div style="flex: 1; min-width: 300px;">
-                    <h3 class="text-2xl font-bold text-gray-800 mb-4">My Philosophy of Care</h3>
-                    <p class="text-gray-600 mb-4">
-                        My journey in medicine has been guided by a simple principle: to blend the highest standards of medical science with genuine, compassionate care. I believe that true healing extends beyond prescriptions and lab reports—it begins with listening.
-                    </p>
-                    <div class="mt-4 border-l-4 border-blue-600 pl-4">
-                        <p class="text-lg font-semibold text-gray-700 italic">
-                            "My goal is to be your partner in health, demystifying complex conditions and creating a personalized care plan that works for you."
+            </div>
+        </section>
+
+        <!-- Main About Section -->
+        <section class="py-16 bg-white">
+            <div class="container" style="max-width: 900px;">
+                
+                <!-- Doctor Intro Card -->
+                <div class="doctor-card" style="background: #ffffff; border: 1px solid #e5e7eb; padding: 40px; display: flex; flex-wrap: wrap; gap: 40px; align-items: center;">
+                    <div class="text-center" style="flex-shrink: 0;">
+                        <div class="doctor-avatar" style="width: 150px; height: 150px; font-size: 56px; margin: 0 auto;">DV</div>
+                        <h3 class="text-2xl font-bold mt-4 text-gray-800">Dr. Vignesh</h3>
+                        <p class="font-semibold text-blue-600 mt-1">DM (Nephrology)</p>
+                        <p class="text-sm text-gray-500">PGIMER, Chandigarh</p>
+                    </div>
+                    <div style="flex: 1; min-width: 300px;">
+                        <h3 class="text-2xl font-bold text-gray-800 mb-4">My Philosophy of Care</h3>
+                        <p class="text-gray-600 mb-4">
+                            My journey in medicine has been guided by a simple principle: to blend the highest standards of medical science with genuine, compassionate care. I believe that true healing extends beyond prescriptions and lab reports—it begins with listening.
+                        </p>
+                        <div class="mt-4 border-l-4 border-blue-600 pl-4">
+                            <p class="text-lg font-semibold text-gray-700 italic">
+                                "My goal is to be your partner in health, demystifying complex conditions and creating a personalized care plan that works for you."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Divider -->
+                <hr class="my-16">
+
+                <!-- Education & Mission Section -->
+                <div class="grid md:grid-cols-2 gap-12">
+                    <!-- Left Column: Education -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <span class="section-icon monitoring" style="width: 40px; height: 40px; font-size: 18px; margin-right: 15px;">🎓</span>
+                            Education & Credentials
+                        </h3>
+                        <ul class="space-y-4">
+                            <li class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <h4 class="font-semibold">DM, Nephrology</h4>
+                                <p class="text-gray-600">Post Graduate Institute of Medical Education and Research (PGIMER), Chandigarh</p>
+                            </li>
+                            <li class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <h4 class="font-semibold">MD, General Medicine</h4>
+                                <p class="text-gray-600">Madras Medical College, Chennai</p>
+                            </li>
+                            <li class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
+                                <h4 class="font-semibold">MBBS</h4>
+                                <p class="text-gray-600">Madras Medical College, Chennai</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Right Column: Mission -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
+                            <span class="section-icon support" style="width: 40px; height: 40px; font-size: 18px; margin-right: 15px;">🎯</span>
+                            My Mission
+                        </h3>
+                        <p class="text-gray-600 mb-4">
+                            My mission is to transform nephrology care by bringing world-class expertise and treatment modalities to my patients. I believe every patient deserves access to cutting-edge kidney care, regardless of their location or background.
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            Through NephroFoundation, I'm building more than a practice—I'm creating a comprehensive kidney health ecosystem that empowers patients through education, early detection, and personalized treatment plans.
+                        </p>
+                        <p class="text-gray-600">
+                            <strong>My commitment:</strong> To be your trusted partner in kidney health, providing clear answers, innovative treatments, and unwavering support throughout your journey to wellness.
                         </p>
                     </div>
                 </div>
+
             </div>
-
-            <!-- Divider -->
-            <hr class="my-16">
-
-            <!-- Education & Mission Section -->
-            <div class="grid md:grid-cols-2 gap-12">
-                <!-- Left Column: Education -->
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        <span class="section-icon monitoring" style="width: 40px; height: 40px; font-size: 18px; margin-right: 15px;">🎓</span>
-                        Education & Credentials
-                    </h3>
-                    <ul class="space-y-4">
-                        <li class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                            <h4 class="font-semibold">DM, Nephrology</h4>
-                            <p class="text-gray-600">Post Graduate Institute of Medical Education and Research (PGIMER), Chandigarh</p>
-                        </li>
-                        <li class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                            <h4 class="font-semibold">MD, General Medicine</h4>
-                            <p class="text-gray-600">Madras Medical College, Chennai</p>
-                        </li>
-                        <li class="p-4 bg-gray-50 border border-gray-200 rounded-lg">
-                            <h4 class="font-semibold">MBBS</h4>
-                            <p class="text-gray-600">Madras Medical College, Chennai</p>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Right Column: Mission -->
-                <div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-6 flex items-center">
-                        <span class="section-icon support" style="width: 40px; height: 40px; font-size: 18px; margin-right: 15px;">🎯</span>
-                        My Mission
-                    </h3>
-                    <p class="text-gray-600 mb-4">
-                        My mission is to bring world-class nephrology care to my home community of Dharmapuri, Salem, and the surrounding regions. I am dedicated to creating a resource where patients feel heard, respected, and empowered.
-                    </p>
-                    <p class="text-gray-600">
-                        Through NephroFoundation, I aim to provide accessible, reliable, and easy-to-understand medical information to help you navigate every stage of your kidney health journey with confidence.
-                    </p>
-                </div>
-            </div>
-
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
+</body>
+</html>
