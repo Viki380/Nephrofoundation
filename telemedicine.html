@@ -1,0 +1,523 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telemedicine Consultations - NephroFoundation</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .consultation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .consultation-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .consultation-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .consultation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .booking-form {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            margin: 30px 0;
+        }
+
+        .time-slot {
+            display: inline-block;
+            padding: 10px 15px;
+            margin: 5px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .time-slot:hover {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+        }
+
+        .time-slot.selected {
+            border-color: #3b82f6;
+            background: #3b82f6;
+            color: white;
+        }
+
+        .time-slot.unavailable {
+            background: #f3f4f6;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .consultation-type {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .type-option {
+            padding: 20px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .type-option:hover {
+            border-color: #3b82f6;
+            background: #f0f9ff;
+        }
+
+        .type-option.selected {
+            border-color: #3b82f6;
+            background: #3b82f6;
+            color: white;
+        }
+
+        .price-tag {
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .video-preview {
+            background: #f3f4f6;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .status-online {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-busy {
+            background: #fecaca;
+            color: #991b1b;
+        }
+
+        .tech-check {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        @media (max-width: 768px) {
+            .consultation-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Placeholders for dynamic content -->
+    <div id="header-placeholder"></div>
+    
+    <main>
+        <section class="hero" style="padding: 60px 0;">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="section-icon support mx-auto mb-4">📹</div>
+                    <h2 style="font-size: 2.5rem;">Telemedicine Consultations</h2>
+                    <p style="font-size: 1.1rem;">Connect with Dr. Vignesh from the comfort of your home through secure video consultations.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="consultation-container">
+            <!-- Consultation Options -->
+            <div class="consultation-grid">
+                <div class="consultation-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div class="section-icon" style="width: 50px; height: 50px; background: linear-gradient(135deg, #3b82f6, #1d4ed8); margin-right: 15px;">🩺</div>
+                        <div>
+                            <h3>Initial Consultation</h3>
+                            <div class="price-tag">₹1500 / 45 minutes</div>
+                        </div>
+                    </div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0;">✓ Complete medical history review</li>
+                        <li style="margin: 8px 0;">✓ Lab report analysis</li>
+                        <li style="margin: 8px 0;">✓ Treatment plan discussion</li>
+                        <li style="margin: 8px 0;">✓ Q&A session</li>
+                        <li style="margin: 8px 0;">✓ Follow-up recommendations</li>
+                    </ul>
+                </div>
+
+                <div class="consultation-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div class="section-icon" style="width: 50px; height: 50px; background: linear-gradient(135deg, #22c55e, #16a34a); margin-right: 15px;">🔄</div>
+                        <div>
+                            <h3>Follow-up Consultation</h3>
+                            <div class="price-tag">₹800 / 30 minutes</div>
+                        </div>
+                    </div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0;">✓ Progress review</li>
+                        <li style="margin: 8px 0;">✓ Medication adjustments</li>
+                        <li style="margin: 8px 0;">✓ New lab results discussion</li>
+                        <li style="margin: 8px 0;">✓ Symptom assessment</li>
+                        <li style="margin: 8px 0;">✓ Next steps planning</li>
+                    </ul>
+                </div>
+
+                <div class="consultation-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div class="section-icon" style="width: 50px; height: 50px; background: linear-gradient(135deg, #f59e0b, #d97706); margin-right: 15px;">⚡</div>
+                        <div>
+                            <h3>Urgent Consultation</h3>
+                            <div class="price-tag">₹2000 / 30 minutes</div>
+                        </div>
+                    </div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0;">✓ Same-day availability</li>
+                        <li style="margin: 8px 0;">✓ Urgent symptom evaluation</li>
+                        <li style="margin: 8px 0;">✓ Emergency care guidance</li>
+                        <li style="margin: 8px 0;">✓ Immediate recommendations</li>
+                        <li style="margin: 8px 0;">✓ Hospital referral if needed</li>
+                    </ul>
+                </div>
+
+                <div class="consultation-card">
+                    <div style="display: flex; align-items: center; margin-bottom: 20px;">
+                        <div class="section-icon" style="width: 50px; height: 50px; background: linear-gradient(135deg, #8b5cf6, #7c3aed); margin-right: 15px;">👥</div>
+                        <div>
+                            <h3>Family Consultation</h3>
+                            <div class="price-tag">₹1800 / 60 minutes</div>
+                        </div>
+                    </div>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0;">✓ Multiple family members</li>
+                        <li style="margin: 8px 0;">✓ Genetic counseling</li>
+                        <li style="margin: 8px 0;">✓ Prevention strategies</li>
+                        <li style="margin: 8px 0;">✓ Care coordination</li>
+                        <li style="margin: 8px 0;">✓ Family support guidance</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Current Status -->
+            <div style="text-align: center; margin: 40px 0;">
+                <div id="doctor-status" class="status-indicator status-online">
+                    <div style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                    Dr. Vignesh is currently available for consultations
+                </div>
+            </div>
+
+            <!-- Booking Form -->
+            <div class="booking-form">
+                <h3 style="margin-bottom: 25px; color: #111827;">Book Your Consultation</h3>
+                
+                <div style="margin-bottom: 25px;">
+                    <label class="form-label">Select Consultation Type</label>
+                    <div class="consultation-type">
+                        <div class="type-option" onclick="selectConsultationType(this, 'initial', 1500)">
+                            <strong>Initial</strong><br>
+                            ₹1500 / 45 min
+                        </div>
+                        <div class="type-option" onclick="selectConsultationType(this, 'followup', 800)">
+                            <strong>Follow-up</strong><br>
+                            ₹800 / 30 min
+                        </div>
+                        <div class="type-option" onclick="selectConsultationType(this, 'urgent', 2000)">
+                            <strong>Urgent</strong><br>
+                            ₹2000 / 30 min
+                        </div>
+                        <div class="type-option" onclick="selectConsultationType(this, 'family', 1800)">
+                            <strong>Family</strong><br>
+                            ₹1800 / 60 min
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label class="form-label">Select Date</label>
+                        <input type="date" id="consultation-date" class="form-input" min="" onchange="loadTimeSlots()">
+                    </div>
+                    <div>
+                        <label class="form-label">Patient Name</label>
+                        <input type="text" id="patient-name" class="form-input" required>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label class="form-label">Available Time Slots</label>
+                    <div id="time-slots">
+                        <p style="color: #6b7280;">Please select a date to view available time slots.</p>
+                    </div>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <div>
+                        <label class="form-label">Email</label>
+                        <input type="email" id="patient-email" class="form-input" required>
+                    </div>
+                    <div>
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" id="patient-phone" class="form-input" required>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <label class="form-label">Brief Description of Concern</label>
+                    <textarea id="consultation-reason" class="form-input" rows="3" placeholder="Please describe your main health concerns or reason for consultation..."></textarea>
+                </div>
+
+                <!-- Tech Check -->
+                <div class="tech-check">
+                    <h4 style="margin-bottom: 15px;">📱 Technology Requirements Check</h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div>
+                            <input type="checkbox" id="tech-camera" style="margin-right: 8px;">
+                            <label for="tech-camera">Camera working</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="tech-microphone" style="margin-right: 8px;">
+                            <label for="tech-microphone">Microphone working</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="tech-internet" style="margin-right: 8px;">
+                            <label for="tech-internet">Stable internet connection</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" id="tech-quiet" style="margin-right: 8px;">
+                            <label for="tech-quiet">Quiet, private space</label>
+                        </div>
+                    </div>
+                    <button onclick="testConnection()" class="btn" style="width: auto; margin-top: 15px;">Test Connection</button>
+                </div>
+
+                <div style="margin: 20px 0; padding: 15px; background: #fef3c7; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                    <p style="color: #78350f; font-size: 0.9rem;">
+                        <strong>Total Cost:</strong> <span id="total-cost">₹0</span><br>
+                        Payment will be processed after confirmation. You will receive a secure video link 15 minutes before your appointment.
+                    </p>
+                </div>
+
+                <button onclick="bookConsultation()" class="btn">📅 Book Consultation</button>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="disclaimer">
+                <h4>📹 Telemedicine Guidelines</h4>
+                <p>Telemedicine consultations are suitable for follow-ups, medication reviews, and non-emergency consultations. For emergency situations, please visit the nearest hospital immediately. Technical requirements include a stable internet connection, working camera and microphone. All consultations are recorded for quality assurance and medical record purposes with your consent.</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load components
+        const loadComponent = async (url, placeholderId) => {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`File not found: ${url}`);
+                const data = await response.text();
+                document.getElementById(placeholderId).innerHTML = data;
+            } catch (error) {
+                console.error(`Error loading ${url}:`, error);
+            }
+        };
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            await Promise.all([
+                loadComponent('header.html', 'header-placeholder'),
+                loadComponent('footer.html', 'footer-placeholder')
+            ]);
+            
+            // Set minimum date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('consultation-date').min = today;
+            
+            // Update doctor status periodically
+            updateDoctorStatus();
+            setInterval(updateDoctorStatus, 30000); // Update every 30 seconds
+        });
+
+        let selectedConsultationType = null;
+        let selectedCost = 0;
+        let selectedTimeSlot = null;
+
+        function selectConsultationType(element, type, cost) {
+            // Remove previous selection
+            document.querySelectorAll('.type-option').forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to clicked element
+            element.classList.add('selected');
+            
+            selectedConsultationType = type;
+            selectedCost = cost;
+            
+            document.getElementById('total-cost').textContent = `₹${cost}`;
+        }
+
+        function loadTimeSlots() {
+            const selectedDate = document.getElementById('consultation-date').value;
+            if (!selectedDate) return;
+            
+            const timeSlots = [
+                '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+                '14:00', '14:30', '15:00', '15:30', '16:00', '16:30',
+                '17:00', '17:30', '18:00', '18:30'
+            ];
+            
+            // Simulate some slots being unavailable
+            const unavailableSlots = ['10:30', '15:00', '16:30'];
+            
+            const slotsHTML = timeSlots.map(slot => {
+                const isUnavailable = unavailableSlots.includes(slot);
+                const className = isUnavailable ? 'time-slot unavailable' : 'time-slot';
+                const onclick = isUnavailable ? '' : `onclick="selectTimeSlot(this, '${slot}')"`;
+                
+                return `<div class="${className}" ${onclick}>${slot}</div>`;
+            }).join('');
+            
+            document.getElementById('time-slots').innerHTML = slotsHTML;
+        }
+
+        function selectTimeSlot(element, time) {
+            // Remove previous selection
+            document.querySelectorAll('.time-slot').forEach(slot => slot.classList.remove('selected'));
+            
+            // Add selection to clicked element
+            element.classList.add('selected');
+            selectedTimeSlot = time;
+        }
+
+        function updateDoctorStatus() {
+            const now = new Date();
+            const hour = now.getHours();
+            const statusElement = document.getElementById('doctor-status');
+            
+            // Simulate doctor availability (9 AM to 8 PM)
+            if (hour >= 9 && hour < 20) {
+                statusElement.className = 'status-indicator status-online';
+                statusElement.innerHTML = `
+                    <div style="width: 10px; height: 10px; background: #22c55e; border-radius: 50%; animation: pulse 2s infinite;"></div>
+                    Dr. Vignesh is currently available for consultations
+                `;
+            } else {
+                statusElement.className = 'status-indicator status-busy';
+                statusElement.innerHTML = `
+                    <div style="width: 10px; height: 10px; background: #ef4444; border-radius: 50%;"></div>
+                    Dr. Vignesh is currently offline (Available 9 AM - 8 PM)
+                `;
+            }
+        }
+
+        function testConnection() {
+            alert('Connection test completed! Your camera, microphone, and internet connection are working properly. ✓');
+        }
+
+        function bookConsultation() {
+            const name = document.getElementById('patient-name').value;
+            const email = document.getElementById('patient-email').value;
+            const phone = document.getElementById('patient-phone').value;
+            const date = document.getElementById('consultation-date').value;
+            const reason = document.getElementById('consultation-reason').value;
+            
+            // Validation
+            if (!selectedConsultationType) {
+                alert('Please select a consultation type.');
+                return;
+            }
+            
+            if (!name || !email || !phone || !date || !selectedTimeSlot) {
+                alert('Please fill in all required fields and select a time slot.');
+                return;
+            }
+            
+            // Check tech requirements
+            const techChecks = ['tech-camera', 'tech-microphone', 'tech-internet', 'tech-quiet'];
+            const allChecked = techChecks.every(id => document.getElementById(id).checked);
+            
+            if (!allChecked) {
+                if (!confirm('Not all technical requirements are checked. Continue booking anyway?')) {
+                    return;
+                }
+            }
+            
+            // Simulate booking process
+            const bookingRef = 'TEL' + Date.now().toString().slice(-6);
+            
+            alert(`Consultation booked successfully! 
+            
+Booking Reference: ${bookingRef}
+Date: ${date} at ${selectedTimeSlot}
+Type: ${selectedConsultationType}
+Cost: ₹${selectedCost}
+
+You will receive a confirmation email with payment link and video consultation details within 5 minutes.`);
+            
+            // Reset form
+            document.getElementById('patient-name').value = '';
+            document.getElementById('patient-email').value = '';
+            document.getElementById('patient-phone').value = '';
+            document.getElementById('consultation-date').value = '';
+            document.getElementById('consultation-reason').value = '';
+            
+            document.querySelectorAll('.type-option, .time-slot').forEach(el => el.classList.remove('selected'));
+            document.getElementById('time-slots').innerHTML = '<p style="color: #6b7280;">Please select a date to view available time slots.</p>';
+            document.getElementById('total-cost').textContent = '₹0';
+            
+            selectedConsultationType = null;
+            selectedCost = 0;
+            selectedTimeSlot = null;
+        }
+
+        // Add pulse animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes pulse {
+                0% { opacity: 1; }
+                50% { opacity: 0.5; }
+                100% { opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
