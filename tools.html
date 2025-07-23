@@ -3,32 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kidney Health Tools | NephroFoundation</title>
-    <meta name="description" content="Use interactive tools like the eGFR calculator to understand your kidney health metrics.">
-    
-    <!-- Google Fonts: Inter -->
+    <title>Advanced Kidney Health Tools - NephroFoundation</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Tailwind CSS for form styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-    
-    <style>
-        /* Custom styles for the KDIGO Heatmap */
-        .heatmap-grid { display: grid; grid-template-columns: 1fr repeat(3, 2fr); grid-template-rows: repeat(5, 1fr); gap: 4px; border: 1px solid #d1d5db; border-radius: 0.5rem; overflow: hidden; font-family: 'Inter', sans-serif; }
-        .heatmap-cell { padding: 0.75rem; text-align: center; font-weight: 600; color: #1f2937; transition: all 0.3s ease; }
-        .heatmap-header { background-color: #f3f4f6; font-weight: 700; }
-        .g-stage { background-color: #dcfce7; } .y-stage { background-color: #fef9c3; } .o-stage { background-color: #ffedd5; } .r-stage { background-color: #fee2e2; }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-
+    <!-- Placeholders for dynamic content -->
     <div id="header-placeholder"></div>
-    <div id="content-placeholder"></div>
+
+    <!-- Main content will be loaded here -->
+    <div id="main-content"></div>
+
     <div id="footer-placeholder"></div>
 
     <script>
@@ -36,60 +23,20 @@
             try {
                 const response = await fetch(url);
                 if (!response.ok) throw new Error(`File not found: ${url}`);
-                document.getElementById(placeholderId).innerHTML = await response.text();
-            } catch (error) { console.error(`Error loading ${url}:`, error); }
-        };
-
-        const initializePage = async () => {
-            await Promise.all([
-                loadComponent('header.html', 'header-placeholder'),
-                loadComponent('tools-content.html', 'content-placeholder'),
-                loadComponent('footer.html', 'footer-placeholder')
-            ]);
-            // Run calculator scripts AFTER the content is loaded
-            setupCalculators();
-        };
-        
-        const setupCalculators = () => {
-            // eGFR Calculator Logic
-            const calculateGfrBtn = document.getElementById('calculate-gfr-btn');
-            if (calculateGfrBtn) {
-                const gfrResultContainer = document.getElementById('gfr-result-container');
-                const egfrResultEl = document.getElementById('egfr-result');
-                const stageInfoEl = document.getElementById('stage-info');
-                const stageTextEl = document.getElementById('stage-text');
-
-                calculateGfrBtn.addEventListener('click', () => {
-                    const creatinine = parseFloat(document.getElementById('creatinine').value);
-                    const age = parseInt(document.getElementById('age').value);
-                    const sex = document.querySelector('input[name="sex"]:checked').value;
-
-                    if (isNaN(creatinine) || isNaN(age) || !sex || creatinine <= 0 || age <= 0) {
-                        alert('Please enter valid, positive values for all eGFR fields.'); return;
-                    }
-
-                    const kappa = sex === 'female' ? 0.7 : 0.9;
-                    const alpha = sex === 'female' ? -0.241 : -0.302;
-                    const sex_factor = sex === 'female' ? 1.012 : 1;
-                    const scr_over_kappa = creatinine / kappa;
-                    
-                    let egfr = 142 * Math.pow(Math.min(scr_over_kappa, 1), alpha) * Math.pow(Math.max(scr_over_kappa, 1), -1.200) * Math.pow(0.9938, age) * sex_factor;
-                    egfr = Math.round(egfr);
-
-                    egfrResultEl.textContent = egfr;
-                    gfrResultContainer.style.display = 'flex';
-
-                    if (egfr >= 90) { stageTextEl.textContent = 'Stage 1: Normal or high'; stageInfoEl.style.backgroundColor = '#22c55e'; } 
-                    else if (egfr >= 60) { stageTextEl.textContent = 'Stage 2: Mildly decreased'; stageInfoEl.style.backgroundColor = '#a3e635'; }
-                    else if (egfr >= 45) { stageTextEl.textContent = 'Stage 3a: Mild to moderate'; stageInfoEl.style.backgroundColor = '#facc15'; }
-                    else if (egfr >= 30) { stageTextEl.textContent = 'Stage 3b: Moderate to severe'; stageInfoEl.style.backgroundColor = '#f97316'; }
-                    else if (egfr >= 15) { stageTextEl.textContent = 'Stage 4: Severely decreased'; stageInfoEl.style.backgroundColor = '#ef4444'; }
-                    else { stageTextEl.textContent = 'Stage 5: Kidney Failure'; stageInfoEl.style.backgroundColor = '#b91c1c'; }
-                });
+                const data = await response.text();
+                document.getElementById(placeholderId).innerHTML = data;
+            } catch (error) {
+                console.error(`Error loading ${url}:`, error);
             }
         };
-        
-        document.addEventListener("DOMContentLoaded", initializePage);
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            await Promise.all([
+                loadComponent('header.html', 'header-placeholder'),
+                loadComponent('tools-content.html', 'main-content'),
+                loadComponent('footer.html', 'footer-placeholder')
+            ]);
+        });
     </script>
 </body>
 </html>

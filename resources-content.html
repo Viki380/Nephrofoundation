@@ -1,72 +1,502 @@
-<main>
-    <!-- Page Title Hero -->
-    <section class="hero" style="padding: 60px 0;">
-        <div class="container">
-            <div class="hero-content">
-                <div class="section-icon support mx-auto mb-4">📚</div>
-                <h2 style="font-size: 2.5rem;">Patient Resources</h2>
-                <p style="font-size: 1.1rem;">Downloadable tools and trusted links to support your health journey.</p>
-            </div>
-        </div>
-    </section>
 
-    <!-- Main Content -->
-    <section class="py-16 bg-white">
-        <div class="container" style="max-width: 900px;">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources - NephroFoundation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            <!-- Downloadable Tools Section -->
-            <div>
-                <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Downloadable Health Trackers</h3>
-                <p class="text-gray-600 text-center mb-8">
-                    Click to open these printable trackers to help you manage your health at home.
-                </p>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Blood Pressure Log -->
-                    <a href="bp-log.html" target="_blank" class="resource-item text-center">
-                        <h4 class="text-xl font-bold">🩸 Blood Pressure Log</h4>
-                        <p class="mt-2">A simple chart to track your daily blood pressure readings.</p>
-                    </a>
-                    <!-- Medication Checklist -->
-                    <a href="med-checklist.html" target="_blank" class="resource-item text-center">
-                        <h4 class="text-xl font-bold">💊 Medication Checklist</h4>
-                        <p class="mt-2">A weekly checklist to ensure you never miss a dose.</p>
-                    </a>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 80px 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        /* Resources Section */
+        .resources-section {
+            padding: 80px 0;
+            background: transparent;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .resource-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .resource-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .resource-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .resource-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .resource-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #111827;
+        }
+
+        .resource-description {
+            color: #6b7280;
+            margin-bottom: 25px;
+            font-size: 0.95rem;
+        }
+
+        .resource-links {
+            list-style: none;
+            padding: 0;
+        }
+
+        .resource-links li {
+            margin-bottom: 12px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .resource-links li::before {
+            content: '📄';
+            position: absolute;
+            left: 0;
+        }
+
+        .resource-links a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .resource-links a:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        /* Downloadable Resources */
+        .download-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .download-item {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 2px solid #bae6fd;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .download-item:hover {
+            background: linear-gradient(135deg, #e0f2fe, #bae6fd);
+            transform: translateY(-3px);
+        }
+
+        .download-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        /* Emergency Resources */
+        .emergency-resources {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-left: 4px solid #f59e0b;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .emergency-resources h3 {
+            color: #92400e;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .emergency-item {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .emergency-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="section-icon">📚</div>
+                    <h2>Healthcare Resources</h2>
+                    <p>Comprehensive resources, tools, and support materials for kidney health management</p>
                 </div>
             </div>
+        </section>
 
-            <!-- Divider -->
-            <hr class="my-16">
+        <!-- Resources Section -->
+        <section class="resources-section">
+            <div class="container">
+                <div class="resources-grid">
+                    
+                    <!-- Medical Guidelines -->
+                    <div class="resource-card">
+                        <div class="resource-header">
+                            <div class="resource-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">📋</div>
+                            <div>
+                                <div class="resource-title">Medical Guidelines</div>
+                            </div>
+                        </div>
+                        <div class="resource-description">Evidence-based clinical guidelines and protocols for kidney disease management</div>
+                        <ul class="resource-links">
+                            <li><a href="#">KDIGO CKD Guidelines 2024</a></li>
+                            <li><a href="#">Hypertension Management in CKD</a></li>
+                            <li><a href="#">Diabetes and Kidney Disease Protocol</a></li>
+                            <li><a href="#">Dialysis Adequacy Guidelines</a></li>
+                            <li><a href="#">Transplant Patient Care Standards</a></li>
+                        </ul>
+                    </div>
 
-            <!-- Useful Links Section -->
-            <div>
-                <h3 class="text-2xl font-bold text-gray-800 mb-2 text-center">Trusted Online Resources</h3>
-                <p class="text-gray-600 text-center mb-8">
-                    The following links lead to reputable organizations that provide excellent, evidence-based information for kidney patients.
-                </p>
-                <div class="space-y-4">
-                    <!-- Link Item -->
-                    <a href="https://www.kidney.org/" target="_blank" rel="noopener noreferrer" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-500 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-lg">
-                        <h4 class="text-lg font-semibold text-blue-700">National Kidney Foundation (NKF)</h4>
-                        <p class="text-gray-600 mt-1">A leading US-based organization with a comprehensive A-Z Health Guide for patients.</p>
-                    </a>
-                    <!-- Link Item -->
-                    <a href="https://www.niddk.nih.gov/health-information/kidney-disease" target="_blank" rel="noopener noreferrer" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-500 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-lg">
-                        <h4 class="text-lg font-semibold text-blue-700">National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK)</h4>
-                        <p class="text-gray-600 mt-1">Provides reliable, government-backed health information on kidney disease.</p>
-                    </a>
-                     <!-- Link Item -->
-                    <a href="https://www.theisn.org/" target="_blank" rel="noopener noreferrer" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-500 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-lg">
-                        <h4 class="text-lg font-semibold text-blue-700">International Society of Nephrology (ISN)</h4>
-                        <p class="text-gray-600 mt-1">A global organization focused on advancing kidney health worldwide.</p>
-                    </a>
-                    <!-- Link Item -->
-                    <a href="https://www.https://kdigo.org/" target="_blank" rel="noopener noreferrer" class="block p-6 bg-gray-50 rounded-lg border border-gray-200 hover:border-blue-500 hover:bg-white transition-all duration-300 shadow-sm hover:shadow-lg">
-                        <h4 class="text-lg font-semibold text-blue-700">KIDNEY DISEASE | IMPROVING GLOBAL OUTCOMES</h4>
-                        <p class="text-gray-600 mt-1">KDIGO is the global nonprofit organization developing and implementing evidence-based clinical practice guidelines in kidney disease.</p>
-                    </a>
+                    <!-- Patient Education Materials -->
+                    <div class="resource-card">
+                        <div class="resource-header">
+                            <div class="resource-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">🎓</div>
+                            <div>
+                                <div class="resource-title">Patient Education</div>
+                            </div>
+                        </div>
+                        <div class="resource-description">Educational materials and resources for patients and families</div>
+                        <ul class="resource-links">
+                            <li><a href="#">Understanding Your Kidney Function</a></li>
+                            <li><a href="#">CKD Diet and Nutrition Guide</a></li>
+                            <li><a href="#">Managing Blood Pressure</a></li>
+                            <li><a href="#">Preparing for Dialysis</a></li>
+                            <li><a href="#">Living with a Kidney Transplant</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Research & Publications -->
+                    <div class="resource-card">
+                        <div class="resource-header">
+                            <div class="resource-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">🔬</div>
+                            <div>
+                                <div class="resource-title">Research & Publications</div>
+                            </div>
+                        </div>
+                        <div class="resource-description">Latest research findings and medical publications in nephrology</div>
+                        <ul class="resource-links">
+                            <li><a href="#">Recent Advances in CKD Treatment</a></li>
+                            <li><a href="#">Nephrology Journal Articles</a></li>
+                            <li><a href="#">Dr. Vignesh's Publications</a></li>
+                            <li><a href="#">Clinical Trial Updates</a></li>
+                            <li><a href="#">Conference Presentations</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Professional Resources -->
+                    <div class="resource-card">
+                        <div class="resource-header">
+                            <div class="resource-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">👨‍⚕️</div>
+                            <div>
+                                <div class="resource-title">Professional Resources</div>
+                            </div>
+                        </div>
+                        <div class="resource-description">Resources for healthcare professionals and medical students</div>
+                        <ul class="resource-links">
+                            <li><a href="#">Nephrology Training Materials</a></li>
+                            <li><a href="#">Case Studies and Clinical Scenarios</a></li>
+                            <li><a href="#">CME Courses and Webinars</a></li>
+                            <li><a href="#">Diagnostic Imaging Atlas</a></li>
+                            <li><a href="#">Laboratory Reference Values</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Support Organizations -->
+                    <div class="resource-card">
+                        <div class="resource-header">
+                            <div class="resource-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">🤝</div>
+                            <div>
+                                <div class="resource-title">Support Organizations</div>
+                            </div>
+                        </div>
+                        <div class="resource-description">Patient support groups and advocacy organizations</div>
+                        <ul class="resource-links">
+                            <li><a href="#">Indian Society of Nephrology</a></li>
+                            <li><a href="#">Kidney Foundation of India</a></li>
+                            <li><a href="#">CKD Patient Support Groups</a></li>
+                            <li><a href="#">Dialysis Support Network</a></li>
+                            <li><a href="#">Transplant Recipient Association</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Technology Resources -->
+                    <div class="resource-card">
+                        <div class="resource-header">
+                            <div class="resource-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">💻</div>
+                            <div>
+                                <div class="resource-title">Digital Health Tools</div>
+                            </div>
+                        </div>
+                        <div class="resource-description">Apps, calculators, and digital tools for kidney health management</div>
+                        <ul class="resource-links">
+                            <li><a href="tools.html">Kidney Function Calculators</a></li>
+                            <li><a href="ai-insights.html">AI Health Insights</a></li>
+                            <li><a href="#">Mobile Health Apps</a></li>
+                            <li><a href="#">Symptom Tracking Tools</a></li>
+                            <li><a href="telemedicine.html">Telemedicine Platform</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Downloadable Resources -->
+                <div class="download-section">
+                    <h3 style="text-align: center; color: #111827; font-size: 1.8rem; margin-bottom: 10px;">Downloadable Resources</h3>
+                    <p style="text-align: center; color: #6b7280; margin-bottom: 30px;">Free printable forms, checklists, and educational materials</p>
+                    
+                    <div class="download-grid">
+                        <div class="download-item">
+                            <div class="download-icon">📝</div>
+                            <h4>Medical History Form</h4>
+                            <p style="color: #6b7280; font-size: 0.9rem;">Comprehensive intake form for new patients</p>
+                            <a href="med-checklist.html" class="download-btn">📄 View/Print</a>
+                        </div>
+                        
+                        <div class="download-item">
+                            <div class="download-icon">📊</div>
+                            <h4>Blood Pressure Log</h4>
+                            <p style="color: #6b7280; font-size: 0.9rem;">Daily tracking sheet for blood pressure monitoring</p>
+                            <a href="bp-log.html" class="download-btn">📄 View/Print</a>
+                        </div>
+                        
+                        <div class="download-item">
+                            <div class="download-icon">💊</div>
+                            <h4>Medication Checklist</h4>
+                            <p style="color: #6b7280; font-size: 0.9rem;">Weekly medication tracking chart</p>
+                            <a href="med-checklist.html" class="download-btn">📄 View/Print</a>
+                        </div>
+                        
+                        <div class="download-item">
+                            <div class="download-icon">🥗</div>
+                            <h4>CKD Diet Guide</h4>
+                            <p style="color: #6b7280; font-size: 0.9rem;">Nutritional guidelines for kidney patients</p>
+                            <a href="#" class="download-btn">📄 Download PDF</a>
+                        </div>
+                        
+                        <div class="download-item">
+                            <div class="download-icon">📋</div>
+                            <h4>Lab Results Tracker</h4>
+                            <p style="color: #6b7280; font-size: 0.9rem;">Template for tracking laboratory values</p>
+                            <a href="#" class="download-btn">📄 Download PDF</a>
+                        </div>
+                        
+                        <div class="download-item">
+                            <div class="download-icon">❓</div>
+                            <h4>Questions for Doctor</h4>
+                            <p style="color: #6b7280; font-size: 0.9rem;">Preparation guide for medical appointments</p>
+                            <a href="#" class="download-btn">📄 Download PDF</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Emergency Resources -->
+                <div class="emergency-resources">
+                    <h3>🚨 Emergency Resources</h3>
+                    <p style="color: #78350f; margin-bottom: 25px;">Important contact numbers and resources for medical emergencies</p>
+                    
+                    <div class="emergency-grid">
+                        <div class="emergency-item">
+                            <div class="emergency-number">108</div>
+                            <div>National Emergency</div>
+                        </div>
+                        
+                        <div class="emergency-item">
+                            <div class="emergency-number">+91 98765 43210</div>
+                            <div>Dr. Vignesh Emergency</div>
+                        </div>
+                        
+                        <div class="emergency-item">
+                            <div class="emergency-number">102</div>
+                            <div>Ambulance Service</div>
+                        </div>
+                        
+                        <div class="emergency-item">
+                            <div class="emergency-number">1066</div>
+                            <div>Disaster Helpline</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Disclaimer -->
+                <div style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-left: 4px solid #f59e0b; border-radius: 12px; padding: 25px; margin: 40px 0;">
+                    <h4 style="color: #92400e; margin-bottom: 12px;">📋 Medical Disclaimer</h4>
+                    <p style="color: #78350f; font-size: 0.95rem; line-height: 1.6;">
+                        All information provided on this page is for educational purposes only and should not replace professional medical advice. Always consult with your healthcare provider before making any decisions about your health or treatment. In case of emergency, seek immediate medical attention or call emergency services.
+                    </p>
                 </div>
             </div>
-
-        </div>
-    </section>
-</main>
+        </section>
+    </main>
+</body>
+</html>

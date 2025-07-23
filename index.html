@@ -3,109 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NephroFoundation | Your Guide to Kidney Health</title>
-    <meta name="description" content="NephroFoundation, led by Dr. Vignesh (DM Nephrology, PGIMER), provides trusted patient education for kidney disease. Based in Salem, Tamil Nadu.">
-    
-    <!-- Google Fonts: Inter -->
+    <title>NephroFoundation - Advanced Kidney Care by Dr. Vignesh</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Placeholders for dynamic content -->
     <div id="header-placeholder"></div>
-    <div id="content-placeholder"></div>
+
+    <!-- Main content will be loaded here -->
+    <div id="main-content"></div>
+
     <div id="footer-placeholder"></div>
 
     <script>
-        // --- Script to load components and initialize page ---
-        const loadComponent = async (url, placeholderId) => {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) throw new Error(`File not found: ${url}`);
-                const data = await response.text();
-                document.getElementById(placeholderId).innerHTML = data;
-            } catch (error) {
-                console.error(`Error loading ${url}:`, error);
+        // Enhanced component loader with caching and error handling
+        class ComponentLoader {
+            constructor() {
+                this.cache = new Map();
+                this.loadingPromises = new Map();
             }
-        };
 
-        const initializePage = async () => {
-            await Promise.all([
-                loadComponent('header.html', 'header-placeholder'),
-                loadComponent('index-content.html', 'content-placeholder'),
-                loadComponent('footer.html', 'footer-placeholder')
-            ]);
-            // Call all interactivity scripts AFTER content is loaded
-            setupSmoothScrolling();
-            setupIntersectionObserver();
-            setupAccordion(); // <-- This line fixes the accordion
-        };
-
-        const setupSmoothScrolling = () => {
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            async loadComponent(url, placeholderId) {
+                try {
+                    // Check cache first
+                    if (this.cache.has(url)) {
+                        document.getElementById(placeholderId).innerHTML = this.cache.get(url);
+                        return;
                     }
-                });
-            });
-        };
 
-        const setupIntersectionObserver = () => {
-            const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        observer.unobserve(entry.target);
+                    // Check if already loading
+                    if (this.loadingPromises.has(url)) {
+                        const data = await this.loadingPromises.get(url);
+                        document.getElementById(placeholderId).innerHTML = data;
+                        return;
                     }
-                });
-            }, observerOptions);
 
-            document.querySelectorAll('.resource-item').forEach(card => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-                observer.observe(card);
-            });
-        };
-        
-        // --- Accordion Logic ---
-        const setupAccordion = () => {
-            const accordionItems = document.querySelectorAll('.accordion-item');
-            accordionItems.forEach(item => {
-                const header = item.querySelector('.accordion-header');
-                const body = item.querySelector('.accordion-body');
-                const icon = item.querySelector('.accordion-icon');
-
-                header.addEventListener('click', () => {
-                    const isOpen = header.classList.contains('active');
-                    // Close all other items
-                    accordionItems.forEach(otherItem => {
-                        otherItem.querySelector('.accordion-header').classList.remove('active');
-                        otherItem.querySelector('.accordion-body').style.maxHeight = null;
-                        otherItem.querySelector('.accordion-icon').textContent = '+';
+                    // Create loading promise
+                    const loadingPromise = fetch(url).then(response => {
+                        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                        return response.text();
                     });
-                    // Open the clicked item if it was closed
-                    if (!isOpen) {
-                        header.classList.add('active');
-                        body.style.maxHeight = body.scrollHeight + 'px';
-                        icon.textContent = '−';
-                    }
-                });
-            });
-        };
 
-        document.addEventListener("DOMContentLoaded", initializePage);
+                    this.loadingPromises.set(url, loadingPromise);
+
+                    const data = await loadingPromise;
+
+                    // Cache the result
+                    this.cache.set(url, data);
+                    this.loadingPromises.delete(url);
+
+                    // Update DOM
+                    const element = document.getElementById(placeholderId);
+                    if (element) {
+                        element.innerHTML = data;
+                    }
+
+                } catch (error) {
+                    console.error(`Error loading ${url}:`, error);
+                    const element = document.getElementById(placeholderId);
+                    if (element) {
+                        element.innerHTML = `<div class="error-message">Content temporarily unavailable</div>`;
+                    }
+                }
+            }
+        }
+
+        const loader = new ComponentLoader();
+
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Show loading indicator
+            document.body.classList.add('loading');
+
+            try {
+                await Promise.all([
+                    loader.loadComponent('header.html', 'header-placeholder'),
+                    loader.loadComponent('index-content.html', 'main-content'),
+                    loader.loadComponent('footer.html', 'footer-placeholder')
+                ]);
+            } catch (error) {
+                console.error('Failed to load components:', error);
+            } finally {
+                document.body.classList.remove('loading');
+            }
+        });
     </script>
 </body>
 </html>

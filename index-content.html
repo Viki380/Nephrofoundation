@@ -3,537 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NephroFoundation - Expert Kidney Care & Education</title>
+    <title>NephroFoundation - Advanced Kidney Care</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8fafc;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* Enhanced Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e40af 35%, #3b82f6 100%);
-            color: white;
-            padding: 100px 0 120px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="dots" width="20" height="20" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1.5" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23dots)"/></svg>');
-            opacity: 0.3;
-        }
-
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 80px;
-            background: linear-gradient(180deg, transparent 0%, #f8fafc 100%);
-        }
-
-        .hero-content {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h2 {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 24px;
-            background: linear-gradient(135deg, #ffffff 0%, #e0f2fe 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            animation: fadeInUp 1s ease-out;
-            line-height: 1.1;
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            opacity: 0.95;
-            margin-bottom: 40px;
-            font-weight: 400;
-            animation: fadeInUp 1s ease-out 0.2s both;
-            line-height: 1.6;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
-            color: white;
-            padding: 18px 36px;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
-            transition: all 0.3s ease;
-            animation: fadeInUp 1s ease-out 0.4s both;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .cta-button:hover::before {
-            left: 100%;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(16, 185, 129, 0.5);
-        }
-
+        /* Enhanced animations and effects */
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Enhanced Doctor Intro Section */
-        .doctor-intro {
-            padding: 80px 0;
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            position: relative;
-        }
-
-        .doctor-card {
-            background: white;
-            padding: 60px;
-            border-radius: 24px;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.08), 0 0 0 1px rgba(0,0,0,0.05);
-            display: flex;
-            gap: 50px;
-            align-items: center;
-            text-align: left;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .doctor-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #06b6d4);
-        }
-
-        .doctor-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 35px 70px rgba(0,0,0,0.12);
-        }
-
-        .doctor-avatar {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 48px;
-            font-weight: bold;
-            flex-shrink: 0;
-            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .doctor-avatar:hover {
-            transform: scale(1.05) rotate(5deg);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.4);
-        }
-
-        .doctor-card h2 {
-            font-size: 2.2rem;
-            color: #1f2937;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .doctor-card p {
-            color: #4b5563;
-            line-height: 1.8;
-            font-size: 1.1rem;
-            position: relative;
-            padding-left: 25px;
-        }
-
-        .doctor-card p::before {
-            content: '"';
-            position: absolute;
-            left: 0;
-            top: -10px;
-            font-size: 3rem;
-            color: #3b82f6;
-            opacity: 0.3;
-            font-family: Georgia, serif;
-        }
-
-        /* Enhanced Education Section */
-        .content-sections {
-            padding: 100px 0;
-            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
-        }
-
-        .section-title {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-weight: 800;
-            text-align: center;
-        }
-
-        .text-gray-600 {
-            color: #6b7280;
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 60px;
-            text-align: center;
-        }
-
-        /* Enhanced Accordion */
-        .accordion-item {
-            background: white;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
-            overflow: hidden;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0,0,0,0.05);
-        }
-
-        .accordion-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-        }
-
-        .accordion-header {
-            width: 100%;
-            padding: 25px 30px;
-            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-            border: none;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #1f2937;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .accordion-header:hover {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-        }
-
-        .accordion-header.active {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            color: white;
-        }
-
-        .accordion-header.active .section-icon {
-            background: rgba(255,255,255,0.2);
-            color: white;
-        }
-
-        .flex {
-            display: flex;
-        }
-
-        .items-center {
-            align-items: center;
-        }
-
-        .section-icon {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #3b82f6, #1e40af);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            margin-right: 20px;
-            box-shadow: 0 8px 16px rgba(59, 130, 246, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .section-icon:hover {
-            transform: scale(1.1);
-        }
-
-        .mr-4 {
-            margin-right: 1rem;
-        }
-
-        .accordion-header h3 {
-            font-size: 1.3rem;
-            margin: 0;
-        }
-
-        .accordion-icon {
-            font-size: 1.5rem;
-            font-weight: bold;
-            transition: transform 0.3s ease;
-            background: linear-gradient(135deg, #3b82f6, #1e40af);
-            color: white;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .accordion-header.active .accordion-icon {
-            transform: rotate(45deg);
-            background: rgba(255,255,255,0.2);
-        }
-
-        .accordion-body {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-            background: #f8fafc;
-        }
-
-        .accordion-body.active {
-            max-height: 300px;
-        }
-
-        .accordion-body ul {
-            list-style: none;
-            padding: 30px;
-            margin: 0;
-        }
-
-        .accordion-body li {
-            margin-bottom: 15px;
-            transform: translateX(-10px);
-            opacity: 0;
-            transition: all 0.3s ease;
-        }
-
-        .accordion-body.active li {
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .accordion-body li:nth-child(1) { transition-delay: 0.1s; }
-        .accordion-body li:nth-child(2) { transition-delay: 0.2s; }
-        .accordion-body li:nth-child(3) { transition-delay: 0.3s; }
-
-        .accordion-body a {
-            color: #374151;
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            display: block;
-            padding: 12px 20px;
-            background: white;
-            border-radius: 8px;
-            border-left: 4px solid transparent;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .accordion-body a:hover {
-            color: #1e40af;
-            border-left-color: #3b82f6;
-            background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
-            transform: translateX(8px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        /* Enhanced Emergency Section */
-        .emergency-section {
-            background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);
-            color: white;
-            padding: 80px 0;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .emergency-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="warning" width="30" height="30" patternUnits="userSpaceOnUse"><polygon points="15,5 25,20 5,20" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23warning)"/></svg>');
-            opacity: 0.1;
-        }
-
-        .emergency-content {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-        }
-
-        .emergency-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .emergency-content > p {
-            font-size: 1.3rem;
-            margin-bottom: 50px;
-            opacity: 0.95;
-        }
-
-        .emergency-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .emergency-item {
-            background: rgba(255,255,255,0.15);
-            padding: 30px;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .emergency-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255,255,255,0.25);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-        }
-
-        .emergency-item h4 {
-            font-size: 1.4rem;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .emergency-item p {
-            font-size: 1rem;
-            line-height: 1.6;
-            opacity: 0.95;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero h2 {
-                font-size: 2.5rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .doctor-card {
-                flex-direction: column;
-                text-align: center;
-                padding: 40px 30px;
-                gap: 30px;
-            }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .accordion-header {
-                padding: 20px;
-            }
-            
-            .accordion-header h3 {
-                font-size: 1.1rem;
-            }
-            
-            .section-icon {
-                width: 40px;
-                height: 40px;
-                font-size: 16px;
-                margin-right: 15px;
-            }
-            
-            .emergency-content h2 {
-                font-size: 2rem;
-            }
-            
-            .emergency-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-        }
-
-        /* Smooth scrolling for anchor links */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* Loading animations */
-        .accordion-item {
-            animation: slideInUp 0.6s ease-out;
-        }
-
-        .accordion-item:nth-child(1) { animation-delay: 0.1s; }
-        .accordion-item:nth-child(2) { animation-delay: 0.2s; }
-        .accordion-item:nth-child(3) { animation-delay: 0.3s; }
-        .accordion-item:nth-child(4) { animation-delay: 0.4s; }
-        .accordion-item:nth-child(5) { animation-delay: 0.5s; }
-        .accordion-item:nth-child(6) { animation-delay: 0.6s; }
-
-        @keyframes slideInUp {
             from {
                 opacity: 0;
                 transform: translateY(30px);
@@ -543,170 +16,452 @@
                 transform: translateY(0);
             }
         }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.6); }
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 0;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            animation: heroGlow 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes heroGlow {
+            0% { opacity: 0.3; }
+            100% { opacity: 0.7; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 50%, #b91c1c 100%);
+            color: white;
+            padding: 18px 40px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.4);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 12px 35px rgba(239, 68, 68, 0.5);
+        }
+
+        /* Features section */
+        .features {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            font-size: 2.5rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #111827;
+        }
+
+        /* Stats section */
+        .stats {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: #60a5fa;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Doctor intro section */
+        .doctor-intro {
+            background: #ffffff;
+            padding: 100px 0;
+        }
+
+        .doctor-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #eef2f7 100%);
+            border-radius: 25px;
+            padding: 50px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .doctor-avatar {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            font-weight: bold;
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
+            animation: pulseGlow 3s ease-in-out infinite;
+        }
+
+        .doctor-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .doctor-info h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #111827;
+        }
+
+        .doctor-credentials {
+            color: #3b82f6;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* CTA section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .cta-card {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .cta-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .doctor-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 30px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            color: #111827;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto;
+        }
     </style>
 </head>
 <body>
     <main>
-        <!-- New Hero Section -->
-        <section class="hero" id="home">
+        <!-- Hero Section -->
+        <section class="hero">
             <div class="container">
                 <div class="hero-content">
-                    <h2 style="font-size: 3.5rem;">Clarity and Care for Your Kidney Health</h2>
-                    <p>A trusted educational resource by Dr. Vignesh (DM Nephrology, PGIMER), dedicated to empowering patients and their families with expert knowledge and compassionate guidance.</p>
-                    <a href="#education" class="cta-button">Explore Patient Guides</a>
+                    <h1>Advanced Kidney Care</h1>
+                    <p class="subtitle">Expert nephrology services with cutting-edge technology and compassionate care</p>
+                    <a href="contact.html" class="cta-button">Schedule Consultation</a>
                 </div>
             </div>
         </section>
 
-        <!-- New "About" Section -->
-        <section class="doctor-intro" id="about">
+        <!-- Stats Section -->
+        <section class="stats">
             <div class="container">
-                <div class="doctor-card" style="display: flex; gap: 40px; align-items: center; text-align: left;">
-                    <div class="doctor-avatar" style="flex-shrink: 0;">DV</div>
-                    <div>
-                        <h2 style="text-align: left; margin-bottom: 10px;">A Message from Dr. Vignesh</h2>
-                        <p style="color: #4b5563; line-height: 1.8;">
-                            Welcome to NephroFoundation—your comprehensive guide to kidney health. With specialized training from PGIMER Chandigarh and years of clinical experience, I've designed this platform to bridge the gap between complex medical information and patient understanding. Here, you'll find evidence-based insights, practical guidance, and the support you need to make informed decisions about your kidney health journey. My commitment is to provide you with medically accurate, accessible information that empowers you and your loved ones every step of the way.
-                        </p>
+                <h2 class="section-title" style="color: white;">Making a Real Impact</h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Patients Treated</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Patient Satisfaction</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">Years Experience</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24/7</div>
+                        <div class="stat-label">Emergency Support</div>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <!-- New Redesigned Education Section -->
-        <section class="content-sections" id="education">
-            <div class="container" style="max-width: 900px; text-align: center;">
-                <h2 class="section-title" style="font-size: 2.5rem; margin-bottom: 1rem;">Patient Education Hub</h2>
-                <p class="text-gray-600" style="font-size: 1.1rem; max-width: 700px; margin: 0 auto 40px;">
-                    Explore comprehensive, doctor-approved resources designed to help you understand and manage your kidney health. Click on any topic to discover detailed articles and practical guidance.
-                </p>
 
-                <!-- Accordion Item 1 -->
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">
-                        <div class="flex items-center"><div class="section-icon understanding mr-4">🫘</div><h3>Understanding Your Kidneys</h3></div>
-                        <span class="accordion-icon">+</span>
-                    </button>
-                    <div class="accordion-body"><ul>
-                        <li><a href="patient-hub.html#understanding-anatomy">Kidney anatomy and structure - Learn how your kidneys are built</a></li>
-                        <li><a href="patient-hub.html#understanding-filtering">How kidneys filter blood - The amazing process of waste removal</a></li>
-                    </ul></div>
-                </div>
-                <!-- Accordion Item 2 -->
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">
-                        <div class="flex items-center"><div class="section-icon prevention mr-4">🛡️</div><h3>Prevention & Risk Factors</h3></div>
-                        <span class="accordion-icon">+</span>
-                    </button>
-                    <div class="accordion-body"><ul>
-                        <li><a href="patient-hub.html#prevention-primary">The Primary Risk Factors - Know what puts your kidneys at risk</a></li>
-                        <li><a href="patient-hub.html#prevention-steps">Practical Steps for Prevention - Simple changes for healthier kidneys</a></li>
-                    </ul></div>
-                </div>
-                <!-- Accordion Item 3 -->
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">
-                         <div class="flex items-center"><div class="section-icon treatment mr-4">💊</div><h3>Treatment Options</h3></div>
-                        <span class="accordion-icon">+</span>
-                    </button>
-                    <div class="accordion-body"><ul>
-                        <li><a href="patient-hub.html#treatment-hd">Hemodialysis (HD) - In-center and home dialysis explained</a></li>
-                        <li><a href="patient-hub.html#treatment-pd">Peritoneal Dialysis (PD) - Dialysis you can do at home</a></li>
-                        <li><a href="patient-hub.html#treatment-transplant">Kidney Transplant - Your path to a new kidney</a></li>
-                    </ul></div>
-                </div>
-                <!-- Accordion Item 4 -->
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">
-                         <div class="flex items-center"><div class="section-icon lifestyle mr-4">🏃</div><h3>Lifestyle & Diet</h3></div>
-                        <span class="accordion-icon">+</span>
-                    </button>
-                    <div class="accordion-body"><ul>
-                        <li><a href="patient-hub.html#lifestyle-minerals">The "Big Three" to Monitor - Sodium, potassium, and phosphorus</a></li>
-                        <li><a href="patient-hub.html#lifestyle-protein">Protein and Fluid Management - Balancing nutrition and kidney health</a></li>
-                    </ul></div>
-                </div>
-                <!-- Accordion Item 5 -->
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">
-                         <div class="flex items-center"><div class="section-icon monitoring mr-4">📊</div><h3>Monitoring & Tests</h3></div>
-                        <span class="accordion-icon">+</span>
-                    </button>
-                    <div class="accordion-body"><ul>
-                        <li><a href="patient-hub.html#monitoring-egfr">Estimated GFR (eGFR) - Understanding your kidney function score</a></li>
-                        <li><a href="patient-hub.html#monitoring-uacr">Urine Albumin-to-Creatinine Ratio - Early detection of kidney damage</a></li>
-                    </ul></div>
-                </div>
-                <!-- Accordion Item 6 -->
-                <div class="accordion-item">
-                    <button class="accordion-header" onclick="toggleAccordion(this)">
-                         <div class="flex items-center"><div class="section-icon support mr-4">🤝</div><h3>Support & Resources</h3></div>
-                        <span class="accordion-icon">+</span>
-                    </button>
-                    <div class="accordion-body"><ul>
-                        <li><a href="patient-hub.html#support-system">Building Your Support System - Family, friends, and healthcare team</a></li>
-                        <li><a href="patient-hub.html#support-links">Trusted Online Resources - Reliable websites and organizations</a></li>
-                    </ul></div>
+        <!-- Features Section -->
+        <section class="features">
+            <div class="container">
+                <h2 class="section-title">Comprehensive Kidney Care</h2>
+                <p class="section-subtitle">State-of-the-art treatments and personalized care plans for all your kidney health needs</p>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8);">🩺</div>
+                        <h3>Expert Diagnosis</h3>
+                        <p>Advanced diagnostic techniques including kidney biopsy, imaging studies, and comprehensive lab analysis for accurate diagnosis and treatment planning.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">💊</div>
+                        <h3>Personalized Treatment</h3>
+                        <p>Customized treatment plans tailored to your specific condition, lifestyle, and health goals using evidence-based medicine and latest research.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">📱</div>
+                        <h3>Digital Health Tools</h3>
+                        <p>Cutting-edge health monitoring tools, AI-powered insights, and telemedicine consultations for convenient, continuous care.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #ef4444, #dc2626);">🏥</div>
+                        <h3>Emergency Care</h3>
+                        <p>24/7 emergency support for acute kidney issues, dialysis complications, and urgent nephrology consultations when you need them most.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">🎓</div>
+                        <h3>Patient Education</h3>
+                        <p>Comprehensive educational resources, workshops, and one-on-one counseling to help you understand and manage your kidney health effectively.</p>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">👥</div>
+                        <h3>Family Support</h3>
+                        <p>Support and guidance for families dealing with kidney disease, including genetic counseling and preventive care strategies.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Other sections remain the same -->
-        <section class="emergency-section">
+        <!-- Doctor Introduction -->
+        <section class="doctor-intro">
             <div class="container">
-                <div class="emergency-content">
-                    <h2>⚠️ When to Seek Emergency Care</h2>
-                    <p>Recognize these critical symptoms that require immediate medical attention—don't wait, your health depends on quick action.</p>
-                    <div class="emergency-grid">
-                        <div class="emergency-item">
-                            <h4>🫁 Severe Symptoms</h4>
-                            <p>Difficulty breathing, chest pain, severe swelling in face, hands, or feet, or sudden weakness</p>
-                        </div>
-                        <div class="emergency-item">
-                            <h4>💧 Urinary Changes</h4>
-                            <p>No urine output for 12+ hours, blood in urine, severe burning pain, or inability to urinate</p>
-                        </div>
-                        <div class="emergency-item">
-                            <h4>🧠 Neurological Signs</h4>
-                            <p>Confusion, seizures, severe headache, vision changes, or loss of consciousness</p>
-                        </div>
+                <div class="doctor-card">
+                    <div class="doctor-avatar">DV</div>
+                    <div class="doctor-info">
+                        <h2>Dr. Vignesh</h2>
+                        <p class="doctor-credentials">DM (Nephrology), PGIMER Chandigarh</p>
+                        <p style="font-size: 1.1rem; line-height: 1.7; color: #4b5563; margin-bottom: 25px;">
+                            With over a decade of experience in nephrology, I am committed to providing the highest quality kidney care using the latest medical advances and a patient-centered approach. My training at PGIMER Chandigarh and continuous research ensure you receive world-class treatment.
+                        </p>
+                        <a href="about.html" style="color: #3b82f6; font-weight: 600; text-decoration: none; font-size: 1.1rem;">Learn more about my background →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action Section -->
+        <section class="cta-section">
+            <div class="container">
+                <h2 class="section-title" style="color: white;">Ready to Take Control of Your Kidney Health?</h2>
+                <p style="font-size: 1.2rem; margin-bottom: 0; opacity: 0.9;">Choose how you'd like to get started with expert kidney care</p>
+
+                <div class="cta-grid">
+                    <div class="cta-card">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">📹 Virtual Consultation</h3>
+                        <p style="margin-bottom: 20px; opacity: 0.9;">Connect with Dr. Vignesh from home through secure video consultation</p>
+                        <a href="telemedicine.html" class="cta-button" style="background: rgba(255, 255, 255, 0.2); border: 2px solid white;">Book Online</a>
+                    </div>
+
+                    <div class="cta-card">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">🧮 Health Assessment</h3>
+                        <p style="margin-bottom: 20px; opacity: 0.9;">Use our advanced tools to assess your kidney health and get personalized insights</p>
+                        <a href="tools.html" class="cta-button" style="background: rgba(255, 255, 255, 0.2); border: 2px solid white;">Start Assessment</a>
+                    </div>
+
+                    <div class="cta-card">
+                        <h3 style="font-size: 1.5rem; margin-bottom: 15px;">📚 Learn More</h3>
+                        <p style="margin-bottom: 20px; opacity: 0.9;">Access comprehensive educational resources about kidney health and disease management</p>
+                        <a href="patient-hub.html" class="cta-button" style="background: rgba(255, 255, 255, 0.2); border: 2px solid white;">Explore Resources</a>
                     </div>
                 </div>
             </div>
         </section>
     </main>
-
-    <script>
-        function toggleAccordion(element) {
-            const accordionBody = element.nextElementSibling;
-            const icon = element.querySelector('.accordion-icon');
-            
-            // Close all other accordions
-            document.querySelectorAll('.accordion-header').forEach(header => {
-                if (header !== element) {
-                    header.classList.remove('active');
-                    header.nextElementSibling.classList.remove('active');
-                }
-            });
-            
-            // Toggle current accordion
-            element.classList.toggle('active');
-            accordionBody.classList.toggle('active');
-        }
-
-        // Add smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-    </script>
 </body>
 </html>
